@@ -32,6 +32,29 @@ finally:
         conn.close()
 
 
+import sqlite3
+import requests
+from bs4 import BeautifulSoup
+import openpyxl
+import logging
+import time
+
+# Настройка логирования
+logging.basicConfig(filename='parse_questions.log', level=logging.INFO, format='%(asctime)s %(levelname)s:%(message)s')
+
+def create_excel_file():
+    # Создаем новый файл Excel и добавляем лист
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Questions"
+    # Добавляем заголовки столбцов
+    ws.append(["ID", "Question Text", "Question Type", "Additional Text"])
+    return wb, ws
+
+def save_to_excel(ws, question_id, question_text, question_type, additional_text):
+    # Добавляем строку с данными в лист
+    ws.append([question_id, question_text, question_type, additional_text])
+
 def parse_questions():
     urls = [
         'https://easyoffer.ru/rating/python_developer',
@@ -48,54 +71,56 @@ def parse_questions():
     ]
 
     total_questions = 0
+    question_id = 1
 
-    conn = sqlite3.connect('trainingbot.db')
-    c = conn.cursor()
+    wb, ws = create_excel_file()
 
     for url in urls:
         response = requests.get(url)
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, 'html.parser')
-            # Находим все элементы по заданному CSS-селектору
             question_links = soup.select(
                 "a.link-offset-2.link-offset-3-hover.link-underline.link-underline-opacity-0.link-underline-opacity-75-hover[href*='/question/']")
 
-            # Подсчет количества вопросов на текущей странице
             num_questions = len(question_links)
             total_questions += num_questions
 
-            print(f"Количество найденных вопросов на {url}: {num_questions}")
+            logging.info(f"Количество найденных вопросов на {url}: {num_questions}")
 
-            # Переход по каждой ссылке и вывод текста вопроса
             for link in question_links:
                 question_url = 'https://easyoffer.ru' + link['href']
-                question_response = requests.get(question_url)
-                if question_response.status_code == 200:
-                    question_soup = BeautifulSoup(question_response.text, 'html.parser')
-                    # Предположим, что текст вопроса находится в теге <h1>
-                    question_text = question_soup.find('h1').text.strip()
-                    print(question_text)
-
-                    # Сохранение вопроса в базу данных
-                    try:
-                        c.execute('INSERT INTO Questions (question_text, question_type) VALUES (?, ?)',
-                                  (question_text, 'TEXT'))
-                    except sqlite3.Error as e:
-                        print(f"Ошибка при вставке вопроса в базу данных: {e}")
+                for _ in range(3):  # Попробовать до 3 раз
+                    question_response = requests.get(question_url)
+                    if question_response.status_code == 200:
+                        break
+                    time.sleep(5)
                 else:
-                    print(f"Ошибка при доступе к странице вопроса {link['href']}")
+                    logging.error(f"Ошибка при доступе к странице вопроса {link['href']}")
+                    continue
+
+                question_soup = BeautifulSoup(question_response.text, 'html.parser')
+                question_text = question_soup.find('h1').text.strip()
+                additional_text = None
+                td_tag = question_soup.find('td', class_='d-none d-sm-table-cell')
+                if (td_tag):
+                    additional_text = td_tag.text.strip()
+                logging.info(f"Вопрос: {question_text}")
+                if (additional_text):
+                    logging.info(f"Дополнительный текст: {additional_text}")
+
+                save_to_excel(ws, question_id, question_text, 'TEXT', additional_text)
+                question_id += 1
         else:
-            print(f"Ошибка при доступе к странице {url}")
+            logging.error(f"Ошибка при доступе к странице {url}")
 
-    # Сохранение изменений и закрытие соединения
-    conn.commit()
-    conn.close()
+    # Сохранение файла Excel
+    wb.save("questions.xlsx")
 
-    print(f"Общее количество найденных вопросов: {total_questions}")
-
+    logging.info(f"Общее количество найденных вопросов: {total_questions}")
 
 # Вызов функции
 parse_questions()
+
 
 
 
