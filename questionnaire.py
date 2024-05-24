@@ -3,9 +3,9 @@ import requests
 from bs4 import BeautifulSoup
 import logging
 
-
 # Настройка логирования
 logging.basicConfig(filename='parse_questions.log', level=logging.INFO, format='%(asctime)s %(levelname)s:%(message)s')
+
 
 # Создание таблицы Questions в базе данных trainingbot.db
 def create_table():
@@ -13,13 +13,13 @@ def create_table():
         conn = sqlite3.connect('trainingbot.db')
         c = conn.cursor()
 
-        # Создаем таблицу Questions
+        # Создаем таблицу Questions с default значением для additional_text
         c.execute('''
         CREATE TABLE IF NOT EXISTS Questions (
             question_id INTEGER PRIMARY KEY AUTOINCREMENT,
             question_text TEXT NOT NULL,
             question_type TEXT NOT NULL,
-            additional_text TEXT
+            additional_text TEXT DEFAULT 'DEFAULT python'
         )
         ''')
 
@@ -32,6 +32,7 @@ def create_table():
     finally:
         if conn:
             conn.close()
+
 
 def parse_questions():
     urls = [
@@ -77,16 +78,19 @@ def parse_questions():
                 question_response.raise_for_status()
                 question_soup = BeautifulSoup(question_response.text, 'html.parser')
                 question_text = question_soup.find('h1').text.strip()
-                additional_text = None
+
+                # Извлечение текста из тега <td> для question_type
                 td_tag = question_soup.find('td', class_='d-none d-sm-table-cell')
-                if td_tag:
-                    additional_text = td_tag.text.strip()
+                question_type = td_tag.text.strip() if td_tag else 'DEFAULT'
+
+                additional_text = 'DEFAULT python'
+
                 logging.info(f"Вопрос: {question_text}")
-                if additional_text:
-                    logging.info(f"Дополнительный текст: {additional_text}")
+                logging.info(f"Тип вопроса: {question_type}")
+                logging.info(f"Дополнительный текст: {additional_text}")
 
                 c.execute('INSERT INTO Questions (question_text, question_type, additional_text) VALUES (?, ?, ?)',
-                          (question_text, 'TEXT', additional_text))
+                          (question_text, question_type, additional_text))
                 conn.commit()  # Фиксация транзакции после каждой успешной вставки
 
             except requests.RequestException as e:
@@ -98,7 +102,9 @@ def parse_questions():
 
     logging.info(f"Общее количество найденных вопросов: {total_questions}")
 
+
 # Вызов функции
 create_table()
 parse_questions()
+
 
