@@ -14,8 +14,7 @@ def init_database():
     CREATE TABLE IF NOT EXISTS Users (
         user_id INTEGER PRIMARY KEY,
         registration_date TEXT NOT NULL,
-        is_active INTEGER NOT NULL,
-        status_admin INTEGER NOT NULL
+        is_active INTEGER NOT NULL
     )
     ''')
 
