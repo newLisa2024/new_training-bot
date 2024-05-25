@@ -4,6 +4,9 @@ import sqlite3
 def init_database():
     # Подключение к базе данных (если файла не существует, он будет создан)
     conn = sqlite3.connect('trainingbot.db')
+    # Включение поддержки внешних ключей
+    conn.execute('PRAGMA foreign_keys = ON;')
+
     cursor = conn.cursor()
 
     # Создание таблицы Users
@@ -22,7 +25,7 @@ def init_database():
         question_id INTEGER PRIMARY KEY AUTOINCREMENT ,
         question_text TEXT NOT NULL,
         question_topic TEXT NOT NULL,
-        question_type TEXT DEFAULT 'python'
+        question_type TEXT 
     )
     ''')
 
@@ -46,4 +49,4 @@ def init_database():
     conn.close()
 
 # Вызов функции для создания базы данных и таблиц
-#init_database()
+init_database()
