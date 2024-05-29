@@ -2,13 +2,14 @@ import telebot
 import os
 import subprocess
 from openai import OpenAI
+from config import BOT_TOKEN, WHISPER_API
 
 # Ваш API ключ для OpenAI
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = BOT_TOKEN
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Ваш токен для бота Telegram
-TELEGRAM_BOT_TOKEN = '7088027566:AAE99kExngxUoqSZpjA3BngUNvA_72foolk'
+TELEGRAM_BOT_TOKEN = WHISPER_API
 bot = telebot.TeleBot(TELEGRAM_BOT_TOKEN)
 
 # Укажите полный путь к ffmpeg.exe
