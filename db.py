@@ -14,7 +14,7 @@ def init_database():
     CREATE TABLE IF NOT EXISTS Users (
         user_id INTEGER PRIMARY KEY,
         registration_date TEXT NOT NULL,
-        is_active INTEGER NOT NULL DEFAULT 1
+        is_active INTEGER NOT NULL
     )
     ''')
 
@@ -47,5 +47,3 @@ def init_database():
     conn.commit()
     conn.close()
 
-# Вызов функции для создания базы данных и таблиц
-init_database()
