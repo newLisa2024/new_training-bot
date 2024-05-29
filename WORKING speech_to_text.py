@@ -5,11 +5,11 @@ from openai import OpenAI
 from config import BOT_TOKEN, WHISPER_API
 
 # Ваш API ключ для OpenAI
-OPENAI_API_KEY = BOT_TOKEN
+OPENAI_API_KEY = WHISPER_API
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Ваш токен для бота Telegram
-TELEGRAM_BOT_TOKEN = WHISPER_API
+TELEGRAM_BOT_TOKEN = BOT_TOKEN
 bot = telebot.TeleBot(TELEGRAM_BOT_TOKEN)
 
 # Укажите полный путь к ffmpeg.exe
