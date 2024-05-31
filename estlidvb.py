@@ -1,20 +1,43 @@
 import sqlite3
+import logging
 
-# Подключаемся к базе данных
-conn = sqlite3.connect('questions2.db')
-cursor = conn.cursor()
+# Configuration for logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s:%(message)s',
+    handlers=[
+        logging.FileHandler('fetch_answers.log'),
+        logging.StreamHandler()
+    ]
+)
 
-# Получаем данные из 10-й строки таблицы questions2
-cursor.execute('SELECT question, answer FROM questions2 LIMIT 1 OFFSET 9')
-row = cursor.fetchone()
 
-# Проверяем, что строка существует и выводим данные
-if row:
-    question, answer = row
-    print(f"Вопрос в 10-й строке: {question}")
-    print(f"Ответ в 10-й строке: {answer}")
-else:
-    print("10-я строка не найдена.")
+def fetch_answers(start_id, end_id):
+    try:
+        conn = sqlite3.connect('trbot.db')
+        c = conn.cursor()
+        c.execute('SELECT question_id, question_text, question_answer FROM Questions WHERE question_id BETWEEN ? AND ?',
+                  (start_id, end_id))
+        rows = c.fetchall()
 
-# Закрываем соединение с базой данных
-conn.close()
+        if rows:
+            for row in rows:
+                logging.info(f"Row {row[0]}: {row[1]} - {row[2]}")
+        else:
+            logging.info(f"No rows found between {start_id} and {end_id}.")
+
+        return rows
+
+    except sqlite3.Error as e:
+        logging.error(f"Database error: {e}")
+
+    finally:
+        if conn:
+            conn.close()
+
+
+# Fetch answers from 10th to 29th row
+rows = fetch_answers(10, 29)
+for row in rows:
+    print(f"Row {row[0]}: {row[1]} - {row[2]}")
+
