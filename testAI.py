@@ -4,12 +4,12 @@ from openai import OpenAI
 import telebot
 
 # OpenAI API key
-client = OpenAI(api_key='ВАШ ТОКЕН',
+client = OpenAI(api_key='sk-SeA46H6qerPo06VdVK2HxMabiqq7maWT',
                 base_url="https://api.proxyapi.ru/openai/v1")
 
 
 # Telegram bot token
-bot = telebot.TeleBot("ВАШ ТОКЕН")
+bot = telebot.TeleBot("6593004563:AAF6_VdpPQKQ-hYjsAcrz6GBwuVnx_CPwFc")
 
 # Function to get a random question from the database
 def get_random_question():
