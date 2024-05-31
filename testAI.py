@@ -1,12 +1,15 @@
 import sqlite3
 import random
-import openai
-from telegram import Update
-from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackContext
+from openai import OpenAI
+import telebot
 
 # OpenAI API key
-openai.api_key = 'выш токен'
+client = OpenAI(api_key='sk-SeA46H6qerPo06VdVK2HxMabiqq7maWT',
+                base_url="https://api.proxyapi.ru/openai/v1")
 
+
+# Telegram bot token
+bot = telebot.TeleBot("6593004563:AAF6_VdpPQKQ-hYjsAcrz6GBwuVnx_CPwFc")
 
 # Function to get a random question from the database
 def get_random_question():
@@ -22,51 +25,37 @@ def get_random_question():
     conn.close()
     return question[0] if question else "Question not found."
 
-
-# Function to send the question and user response to GPT-4o and get feedback
-async def get_feedback(question, user_response):
+# Function to send the question and user response to GPT-4 and get feedback
+def get_feedback(question, user_response):
     prompt = f"""Действуй как опытный HR-программист, специалист по пайтону.
     Ты получил вопрос: "{question}"
     и ответ соискателя: "{user_response}".
-    Ты должен оценить ответ и дать обратную связь. Твоя оценка должна начинаться с 'ответ правильный', если ответ правильный, или 'ответ не правильный', если ответ неправильный или неполный."""
+    Ты должен оценить ответ и дать обратную связь. Твоя оценка должна начинаться с 'ответ правильный', если ответ правильный, или 'ответ не правильный', если ответ неправильный или неполный. Если ответ не правильный, напиши правильный ответ """
 
-    response = await openai.ChatCompletion.create(
-        model="gpt-4o",
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo-16k-0613",
         messages=[
             {"role": "system", "content": "Ты опытный HR специалист."},
             {"role": "user", "content": prompt}
         ]
     )
-    print(response['choices'][0]['message']['content'])
+    return response.choices[0].message.content
 
-
-# Asynchronous handler for the /start command
-async def start(update: Update, context: CallbackContext):
+# Handler for the /start command
+@bot.message_handler(commands=['start'])
+def start(message):
     question = get_random_question()
-    context.user_data['current_question'] = question
-    await update.message.reply_text(f"Вот ваш вопрос:\n{question}\nПожалуйста, напишите ваш ответ.")
+    bot.send_message(message.chat.id, f"Вот ваш вопрос:\n{question}\nПожалуйста, напишите ваш ответ.")
+    bot.register_next_step_handler(message, handle_message, question)
 
+# Handler for user responses
+def handle_message(message, question):
+    user_response = message.text
+    feedback = get_feedback(question, user_response)
+    bot.send_message(message.chat.id, feedback)
 
-# Asynchronous handler for user responses
-async def handle_message(update: Update, context: CallbackContext):
-    user_response = update.message.text
-    question = context.user_data.get('current_question', 'Вопрос не найден.')
-    feedback = await get_feedback(question, user_response)
-    await update.message.reply_text(feedback)
-
-
-def main():
-    # Telegram bot token
-    application = Application.builder().token("ваш токен").build()
-
-    application.add_handler(CommandHandler("start", start))
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-
-    application.run_polling()
-
-
-if __name__ == '__main__':
-    main()
+# Start polling
+bot.polling()
 
 
 
