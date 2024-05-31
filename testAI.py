@@ -4,12 +4,12 @@ from openai import OpenAI
 import telebot
 
 # OpenAI API key
-client = OpenAI(api_key='sk-SeA46H6qerPo06VdVK2HxMabiqq7maWT',
+client = OpenAI(api_key='ВАШ ТОКЕН',
                 base_url="https://api.proxyapi.ru/openai/v1")
 
 
 # Telegram bot token
-bot = telebot.TeleBot("6593004563:AAF6_VdpPQKQ-hYjsAcrz6GBwuVnx_CPwFc")
+bot = telebot.TeleBot("ВАШ ТОКЕН")
 
 # Function to get a random question from the database
 def get_random_question():
@@ -30,8 +30,9 @@ def get_feedback(question, user_response):
     prompt = f"""Действуй как опытный HR-программист, специалист по пайтону.
     Ты получил вопрос: "{question}"
     и ответ соискателя: "{user_response}".
-    Ты должен оценить ответ и дать обратную связь. Твоя оценка должна начинаться с 'ответ правильный', если ответ правильный, или 'ответ не правильный', если ответ неправильный или неполный. Если ответ не правильный, напиши правильный ответ """
-
+    Ты должен оценить ответ и дать обратную связь. Твоя оценка должна начинаться только с 'правильный ответ', если ответ правильный, или 'не правильный ответ', если ответ неправильный или неполный. Если ответ не правильный, потом напиши правильный ответ. 
+    Твоя оценка имеет такую структуру : Правильный/не правильный ответ , потом правильный ответ или , если ответ правильный маленькие добавления."""
+       
     response = client.chat.completions.create(
         model="gpt-3.5-turbo-16k-0613",
         messages=[
@@ -56,8 +57,3 @@ def handle_message(message, question):
 
 # Start polling
 bot.polling()
-
-
-
-
-
