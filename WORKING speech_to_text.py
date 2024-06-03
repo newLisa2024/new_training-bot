@@ -2,7 +2,7 @@ import telebot
 import os
 import subprocess
 from openai import OpenAI
-from config import BOT_TOKEN, WHISPER_API
+from config import *
 
 # Ваш API ключ для OpenAI
 OPENAI_API_KEY = WHISPER_API
@@ -38,39 +38,43 @@ def send_welcome(message):
 def handle_voice(message):
     user_id = message.from_user.id
 
+
     try:
-        # Скачиваем голосовое сообщение
-        file_info = bot.get_file(message.voice.file_id)
-        downloaded_file = bot.download_file(file_info.file_path)
+        current_questions = read_current_questions(user_id)
 
-        # Сохраняем голосовое сообщение во временный файл
-        ogg_file_path = os.path.join(audio_folder, f"voice_message_{user_id}.ogg")
-        mp3_file_path = os.path.join(audio_folder, f"voice_message_{user_id}.mp3")
+        if current_questions.get("state") == "all_questions" or:
+            # Скачиваем голосовое сообщение
+            file_info = bot.get_file(message.voice.file_id)
+            downloaded_file = bot.download_file(file_info.file_path)
 
-        with open(ogg_file_path, 'wb') as new_file:
-            new_file.write(downloaded_file)
+            # Сохраняем голосовое сообщение во временный файл
+            ogg_file_path = os.path.join(audio_folder, f"voice_message_{user_id}.ogg")
+            mp3_file_path = os.path.join(audio_folder, f"voice_message_{user_id}.mp3")
 
-        # Преобразуем формат файла из ogg в mp3
-        subprocess.run([FFMPEG_PATH, "-i", ogg_file_path, mp3_file_path], stdout=subprocess.PIPE,
-                       stderr=subprocess.PIPE,
-                       text=True, timeout=30)
+            with open(ogg_file_path, 'wb') as new_file:
+                new_file.write(downloaded_file)
 
-        # Открываем mp3 файл для транскрипции
-        with open(mp3_file_path, "rb") as audio_file:
-            transcription = client.audio.transcriptions.create(
-                model="whisper-1",
-                file=audio_file,
-                prompt="The recorded message is in Russian, but it is "
-                       "a response to interview questions for a Python "
-                       "programmer position. It includes professional "
-                       "terminology in English related to Python and HR "
-                       "for Python programmer candidates. Transcribe this"
-                       " terminology in English. All words that are not"
-                       " terminology should be transcribed in Russian."
-            )
+            # Преобразуем формат файла из ogg в mp3
+            subprocess.run([FFMPEG_PATH, "-i", ogg_file_path, mp3_file_path], stdout=subprocess.PIPE,
+                           stderr=subprocess.PIPE,
+                           text=True, timeout=30)
 
-        # Отправляем транскрибированный текст пользователю
-        bot.reply_to(message, transcription.text)
+            # Открываем mp3 файл для транскрипции
+            with open(mp3_file_path, "rb") as audio_file:
+                transcription = client.audio.transcriptions.create(
+                    model="whisper-1",
+                    file=audio_file,
+                    prompt="The recorded message is in Russian, but it is "
+                           "a response to interview questions for a Python "
+                           "programmer position. It includes professional "
+                           "terminology in English related to Python and HR "
+                           "for Python programmer candidates. Transcribe this"
+                           " terminology in English. All words that are not"
+                           " terminology should be transcribed in Russian."
+                )
+
+            # Отправляем транскрибированный текст пользователю
+            bot.reply_to(message, transcription.text)
 
     except Exception as e:
         # Обработка любых ошибок
@@ -87,3 +91,17 @@ def handle_voice(message):
 
 # Запуск бота
 bot.polling(none_stop=True)
+
+
+
+prompt = f"""Ты являешься опытным HR.
+    Ты получил вопрос: "{question}"
+    и ответ кандидата: "{user_response}".
+    Твоя задача - оценить ответ и дать обратную связь. Начни свой ответ с одного из двух вариантов: "правильный ответ" или "неправильный ответ". 
+    Если ответ правильный, используй "правильный ответ". Если ответ неправильный или неполный, используй "неправильный ответ". 
+    Если ответ неправильный, предоставь правильный ответ. 
+    Твоя оценка должна иметь следующую структуру: "правильный ответ" или "неправильный ответ", затем правильный ответ или, если ответ правильный, небольшие дополнения."""
+
+
+feedback = get_feedback("Вопрос пример", "Ответ пример")
+print(feedback)

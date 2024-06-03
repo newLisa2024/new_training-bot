@@ -1,0 +1,4 @@
+1: https://t.me/Test_buddyroo_bot?start=AB12
+2: https://t.me/Test_buddyroo_bot?start=CD34
+3: https://t.me/Test_buddyroo_bot?start=EF56
+4: https://t.me/Test_buddyroo_bot?start=GH78
