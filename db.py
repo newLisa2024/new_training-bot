@@ -24,7 +24,9 @@ def init_database():
         question_id INTEGER PRIMARY KEY AUTOINCREMENT ,
         question_text TEXT NOT NULL,
         question_topic TEXT NOT NULL,
-        question_type TEXT 
+        question_type TEXT DEFAULT 'python',
+        question_frequency INTEGER NOT NULL,
+        question_answer TEXT 
     )
     ''')
 
@@ -34,12 +36,17 @@ def init_database():
         answer_id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id INTEGER NOT NULL,
         question_id INTEGER NOT NULL,
-        is_correct INTEGER NOT NULL,
-        number_of_attempts INTEGER NOT NULL DEFAULT 1,
+        is_correct INTEGER,
+        number_of_attempts INTEGER NOT NULL DEFAULT 0,
         last_answer_date TEXT NOT NULL,
+        number_of_times_skipped INTEGER DEFAULT 0,
+        last_skipped_day TEXT,
+        last_correct_answer_date TEXT,
+        number_of_correct_answers INTEGER DEFAULT 0,
         FOREIGN KEY (user_id) REFERENCES Users(user_id),
         FOREIGN KEY (question_id) REFERENCES Questions(question_id),
         UNIQUE(user_id, question_id)
+        
     )
     ''')
 
@@ -47,3 +54,4 @@ def init_database():
     conn.commit()
     conn.close()
 
+#init_database()

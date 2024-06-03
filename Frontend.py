@@ -25,11 +25,15 @@ buttons_dict = {
     'menu': 'На главную ↲',
     #'menu': '↺ ↴ ⤴ ⇗ ↗',
     'statistics': 'Статистика 📈',
-    'test_mode': '❓Тестирование',
+    'test_mode': '❓ Тестирование',
     'back': 'Назад',
     'start_test': 'Начать тест',
     'all_questions': 'Все вопросы',
     'choose_topic': 'Выбрать тему',
+    'see_answer_all': 'Узнать ответ👀',
+    'next_question_all': '❓ Следующий',
+    'detailed_statistics':'📑 Подробный',
+
     #'left': "⬅️",
     #'right': "➡️",
     'left': "⟵",
@@ -41,10 +45,30 @@ buttons_dict = {
     #"right": "⇐",
     'text_report': '📑 Текстовый',
     'graph_report': 'Графический 📈',
-    'skip_question': '❌ Пропустить',
-    'next_question': 'Следующий ⟶',
+    'skip_question_all': '❌ Пропустить',
+
+
     'repeat_topic': '↺ Повторить тему'
 }
+
+def add_topic_buttons(buttons_dict, list_of_topics):
+    for idx, topic in enumerate(list_of_topics):
+        button_key = f'topic_{idx}'
+        buttons_dict[button_key] = topic
+
+
+def create_see_answer_button(topic_index):
+    return (f'see_answer_{topic_index}', '👀 Ответ')
+
+
+
+# Функция для создания динамических кнопок пропуска вопросов по теме
+def create_skip_question_button(topic_index):
+    return (f'skip_question_{topic_index}', '❌ Пропустить')
+
+def create_next_question_button(topic_index):
+    return (f'next_question_{topic_index}', '❓ Следующий')
+
 
 #при ошибке бот прекращает работу, а должен перезапускаться
 
@@ -60,14 +84,9 @@ buttons_dict = {
 #    return wrapper
 
 # Функция для создания inline клавиатуры
-@error_handler
-def create_inline_keyboard(button_keys):
-    keyboard = types.InlineKeyboardMarkup(row_width=2)
-    buttons = [types.InlineKeyboardButton(text=buttons_dict[key], callback_data=key) for key in button_keys if key in buttons_dict]
-    keyboard.add(*buttons)
-    return keyboard
 
-timer_message = "⏰ ⌛ Будет установлен таймер на 2 минуты.По истечении времени ответ будет засчитан."
+
+timer_message = "⏰ ⌛ Будет установлен таймер на 2 минуты.По истечении времени ответ будет засчитан. Вы можете пропустить вопрос, а также узнать на него правильный ответ, не отвечая. Если Вам понадобится больше времени, нажмите 'Еще 2 мин'\n Ответ Вы можете напечатать в поле ввода сообщения либо записать голосовым сообщением (говорите четко!)"
 
 
 

@@ -3,14 +3,13 @@ import os
 import subprocess
 import openai
 import speech_recognition as sr
-from config import BOT_TOKEN, WHISPER_API
 
 # Ваш API ключ для OpenAI
-OPENAI_API_KEY = WHISPER_API
+OPENAI_API_KEY = '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'
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
 # Ваш токен для бота Telegram
-TELEGRAM_BOT_TOKEN = BOT_TOKEN
+TELEGRAM_BOT_TOKEN = '7088027566:AAE99kExngxUoqSZpjA3BngUNvA_72foolk'
 bot = telebot.TeleBot(TELEGRAM_BOT_TOKEN)
 
 # Укажите полный путь к ffmpeg.exe
