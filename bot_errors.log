@@ -1,0 +1,1420 @@
+2024-05-28 23:52:31,426 - root - ERROR - Unexpected error: exists: path should be string, bytes, os.PathLike or integer, not NoneType
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 188, in topic_selected
+    if not os.path.exists(filename):
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: exists: path should be string, bytes, os.PathLike or integer, not NoneType
+2024-05-28 23:52:35,741 - root - ERROR - Unexpected error: exists: path should be string, bytes, os.PathLike or integer, not NoneType
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 188, in topic_selected
+    if not os.path.exists(filename):
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: exists: path should be string, bytes, os.PathLike or integer, not NoneType
+2024-05-29 11:29:51,105 - root - ERROR - Error in choose_topic: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 35, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 158, in choose_topic
+    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0442\u0435\u043c\u0443:', reply_markup=keyboard)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 4618, in edit_message_text
+    result = apihelper.edit_message_text(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 1356, in edit_message_text
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message
+2024-05-31 01:18:38,035 - root - ERROR - Error in handle_statistics: name 'tdb' is not defined
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 46, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 135, in handle_statistics
+    overall_table, topics_table = get_progress(user_id, list_of_topics)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\statistics_text.py", line 28, in get_progress
+    correct_answers_count, total_questions_count = tdb.get_correct_answers_count(user_id, topic)
+                                                   ^^^
+NameError: name 'tdb' is not defined
+2024-05-31 01:32:20,314 - root - ERROR - Error in handle_statistics: too many values to unpack (expected 2)
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 47, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 136, in handle_statistics
+    overall_table, topics_table = get_progress(user_id, list_of_topics)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: too many values to unpack (expected 2)
+2024-05-31 01:35:05,512 - root - ERROR - Error in handle_statistics: too many values to unpack (expected 2)
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 47, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 136, in handle_statistics
+    overall_table, topics_table = get_progress(user_id, list_of_topics)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: too many values to unpack (expected 2)
+2024-05-31 01:57:16,802 - root - ERROR - Error in handle_statistics: '\u041f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e'
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 51, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 140, in handle_statistics
+    topics_df = get_progress(user_id, list_of_topics)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 685, in get_progress
+    topic_stats['\u041f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e'].append(correct_answers_count)
+    ~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: '\u041f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e'
+2024-05-31 01:58:20,542 - root - ERROR - Error in handle_statistics: '\u041f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e'
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 51, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 140, in handle_statistics
+    topics_df = get_progress(user_id, list_of_topics)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 685, in get_progress
+    topic_stats['\u041f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e'].append(correct_answers_count)
+    ~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: '\u041f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e'
+2024-05-31 09:19:29,809 - root - ERROR - Error in handle_statistics: '\u041f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e'
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 51, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 140, in handle_statistics
+    topics_df = get_progress(user_id, list_of_topics)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 685, in get_progress
+    topic_stats['\u041f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e'].append(correct_answers_count)
+    ~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: '\u041f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e'
+2024-05-31 09:19:51,603 - root - ERROR - Error in handle_statistics: '\u041f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e'
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 51, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 140, in handle_statistics
+    topics_df = get_progress(user_id, list_of_topics)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 685, in get_progress
+    topic_stats['\u041f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e'].append(correct_answers_count)
+    ~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: '\u041f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e'
+2024-05-31 10:17:01,192 - root - ERROR - Error in handle_statistics: '\u041f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e'
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 51, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 718, in handle_statistics
+    topics_df = get_progress(user_id, list_of_topics)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 668, in get_progress
+    topic_stats['\u041f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e'].append(correct_answers_count)
+    ~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: '\u041f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e'
+2024-05-31 13:11:59,443 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: message is too long
+2024-05-31 13:11:59,444 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1215, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 150, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 8449, in _run_middlewares_and_handler
+    result = handler['function'](message)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 811, in handle_text_report
+    bot.send_message(call.message.chat.id, report)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1751, in send_message
+    apihelper.send_message(
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 271, in send_message
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: message is too long
+
+2024-05-31 13:37:37,437 - root - ERROR - Error in handle_statistics: Invalid RGBA argument: 'verypalegreen'
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 54, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 702, in handle_statistics
+    img = create_progress_image(topics_df)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 669, in create_progress_image
+    cell.set_facecolor(colors[2])
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\patches.py", line 403, in set_facecolor
+    self._set_facecolor(color)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\patches.py", line 391, in _set_facecolor
+    self._facecolor = colors.to_rgba(color, alpha)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\colors.py", line 309, in to_rgba
+    rgba = _to_rgba_no_colorcycle(c, alpha)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\colors.py", line 391, in _to_rgba_no_colorcycle
+    raise ValueError(f"Invalid RGBA argument: {orig_c!r}")
+ValueError: Invalid RGBA argument: 'verypalegreen'
+2024-05-31 13:37:40,541 - root - ERROR - Error in handle_statistics: Invalid RGBA argument: 'verypalegreen'
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 54, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 702, in handle_statistics
+    img = create_progress_image(topics_df)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 669, in create_progress_image
+    cell.set_facecolor(colors[2])
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\patches.py", line 403, in set_facecolor
+    self._set_facecolor(color)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\patches.py", line 391, in _set_facecolor
+    self._facecolor = colors.to_rgba(color, alpha)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\colors.py", line 309, in to_rgba
+    rgba = _to_rgba_no_colorcycle(c, alpha)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\colors.py", line 391, in _to_rgba_no_colorcycle
+    raise ValueError(f"Invalid RGBA argument: {orig_c!r}")
+ValueError: Invalid RGBA argument: 'verypalegreen'
+2024-05-31 13:41:37,753 - root - ERROR - Error in handle_statistics: Invalid RGBA argument: '##B6FFB6'
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 54, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 702, in handle_statistics
+    img = create_progress_image(topics_df)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 669, in create_progress_image
+    cell.set_facecolor(colors[2])
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\patches.py", line 403, in set_facecolor
+    self._set_facecolor(color)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\patches.py", line 391, in _set_facecolor
+    self._facecolor = colors.to_rgba(color, alpha)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\colors.py", line 309, in to_rgba
+    rgba = _to_rgba_no_colorcycle(c, alpha)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\colors.py", line 391, in _to_rgba_no_colorcycle
+    raise ValueError(f"Invalid RGBA argument: {orig_c!r}")
+ValueError: Invalid RGBA argument: '##B6FFB6'
+2024-05-31 13:41:41,753 - root - ERROR - Error in handle_statistics: Invalid RGBA argument: '##B6FFB6'
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 54, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 702, in handle_statistics
+    img = create_progress_image(topics_df)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 669, in create_progress_image
+    cell.set_facecolor(colors[2])
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\patches.py", line 403, in set_facecolor
+    self._set_facecolor(color)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\patches.py", line 391, in _set_facecolor
+    self._facecolor = colors.to_rgba(color, alpha)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\colors.py", line 309, in to_rgba
+    rgba = _to_rgba_no_colorcycle(c, alpha)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\colors.py", line 391, in _to_rgba_no_colorcycle
+    raise ValueError(f"Invalid RGBA argument: {orig_c!r}")
+ValueError: Invalid RGBA argument: '##B6FFB6'
+2024-05-31 13:41:56,086 - root - ERROR - Error in handle_statistics: Invalid RGBA argument: '##B6FFB6'
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 54, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 702, in handle_statistics
+    img = create_progress_image(topics_df)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 669, in create_progress_image
+    cell.set_facecolor(colors[2])
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\patches.py", line 403, in set_facecolor
+    self._set_facecolor(color)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\patches.py", line 391, in _set_facecolor
+    self._facecolor = colors.to_rgba(color, alpha)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\colors.py", line 309, in to_rgba
+    rgba = _to_rgba_no_colorcycle(c, alpha)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\matplotlib\colors.py", line 391, in _to_rgba_no_colorcycle
+    raise ValueError(f"Invalid RGBA argument: {orig_c!r}")
+ValueError: Invalid RGBA argument: '##B6FFB6'
+2024-06-01 18:29:02,821 - root - ERROR - Error in handle_menu: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot7088027566:AAE99kExngxUoqSZpjA3BngUNvA_72foolk/sendMessage?chat_id=5581286521&text=%D0%92%D1%8B%D0%B1%D0%B5%D1%80%D0%B8%D1%82%D0%B5+%D1%80%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB&reply_markup=%7B%22inline_keyboard%22%3A+%5B%5B%7B%22text%22%3A+%22%5Cu2753+%5Cu0422%5Cu0435%5Cu0441%5Cu0442%5Cu0438%5Cu0440%5Cu043e%5Cu0432%5Cu0430%5Cu043d%5Cu0438%5Cu0435%22%2C+%22callback_data%22%3A+%22test_mode%22%7D%2C+%7B%22text%22%3A+%22%5Cu0421%5Cu0442%5Cu0430%5Cu0442%5Cu0438%5Cu0441%5Cu0442%5Cu0438%5Cu043a%5Cu0430+%5Cud83d%5Cudcc8%22%2C+%22callback_data%22%3A+%22statistics%22%7D%5D%5D%7D (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000239848362D0>: Failed to resolve 'api.telegram.org' ([Errno 11001] getaddrinfo failed)"))
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 963, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\urllib3\connectionpool.py", line 491, in _make_request
+    raise new_e
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\urllib3\connectionpool.py", line 467, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\urllib3\connectionpool.py", line 1099, in _validate_conn
+    conn.connect()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\urllib3\connection.py", line 616, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x00000239848362D0>: Failed to resolve 'api.telegram.org' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\requests\adapters.py", line 589, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\urllib3\util\retry.py", line 515, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot7088027566:AAE99kExngxUoqSZpjA3BngUNvA_72foolk/sendMessage?chat_id=5581286521&text=%D0%92%D1%8B%D0%B1%D0%B5%D1%80%D0%B8%D1%82%D0%B5+%D1%80%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB&reply_markup=%7B%22inline_keyboard%22%3A+%5B%5B%7B%22text%22%3A+%22%5Cu2753+%5Cu0422%5Cu0435%5Cu0441%5Cu0442%5Cu0438%5Cu0440%5Cu043e%5Cu0432%5Cu0430%5Cu043d%5Cu0438%5Cu0435%22%2C+%22callback_data%22%3A+%22test_mode%22%7D%2C+%7B%22text%22%3A+%22%5Cu0421%5Cu0442%5Cu0430%5Cu0442%5Cu0438%5Cu0441%5Cu0442%5Cu0438%5Cu043a%5Cu0430+%5Cud83d%5Cudcc8%22%2C+%22callback_data%22%3A+%22statistics%22%7D%5D%5D%7D (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000239848362D0>: Failed to resolve 'api.telegram.org' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 66, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 179, in handle_menu
+    bot.send_message(call.message.chat.id, "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0440\u0430\u0437\u0434\u0435\u043b", reply_markup=keyboard)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1751, in send_message
+    apihelper.send_message(
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 271, in send_message
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 162, in _make_request
+    result = _get_req_session().request(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\requests\adapters.py", line 622, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot7088027566:AAE99kExngxUoqSZpjA3BngUNvA_72foolk/sendMessage?chat_id=5581286521&text=%D0%92%D1%8B%D0%B1%D0%B5%D1%80%D0%B8%D1%82%D0%B5+%D1%80%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB&reply_markup=%7B%22inline_keyboard%22%3A+%5B%5B%7B%22text%22%3A+%22%5Cu2753+%5Cu0422%5Cu0435%5Cu0441%5Cu0442%5Cu0438%5Cu0440%5Cu043e%5Cu0432%5Cu0430%5Cu043d%5Cu0438%5Cu0435%22%2C+%22callback_data%22%3A+%22test_mode%22%7D%2C+%7B%22text%22%3A+%22%5Cu0421%5Cu0442%5Cu0430%5Cu0442%5Cu0438%5Cu0441%5Cu0442%5Cu0438%5Cu043a%5Cu0430+%5Cud83d%5Cudcc8%22%2C+%22callback_data%22%3A+%22statistics%22%7D%5D%5D%7D (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000239848362D0>: Failed to resolve 'api.telegram.org' ([Errno 11001] getaddrinfo failed)"))
+2024-06-02 16:12:23,219 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:12:23,221 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:12:26,712 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:12:26,713 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:12:27,190 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:12:27,191 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:12:30,930 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:12:30,931 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:12:31,657 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:12:31,657 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:12:35,898 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:12:35,898 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:12:37,128 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:12:37,129 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:12:42,369 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:12:42,370 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:12:55,785 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:12:55,786 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:13:00,020 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:13:00,021 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:13:03,506 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:13:03,506 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:13:11,740 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:13:11,740 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:13:15,474 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:13:15,475 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:14:08,535 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:14:08,536 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:14:10,806 - root - ERROR - Error in handle_menu: [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 66, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 166, in handle_menu
+    current_questions = read_current_questions(user_id)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\Backend.py", line 522, in read_current_questions
+    print(f"Read data for user {user_id}: {data}")
+OSError: [Errno 22] Invalid argument
+2024-06-02 16:14:12,024 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:14:12,025 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:14:12,511 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:14:12,511 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:14:15,994 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:14:15,995 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:14:16,726 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:14:16,726 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:14:20,460 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:14:20,461 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:14:21,691 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:14:21,691 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:14:25,923 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:14:25,924 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-02 16:14:28,155 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-02 16:14:28,155 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-04 21:41:06,564 - root - ERROR - Error in handle_repeat_wrong_and_skipped: can only concatenate list (not "int") to list
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 70, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 827, in handle_repeat_wrong_and_skipped
+    bot.send_message(user_id, data + len(data)+data[4])
+                              ~~~~~^~~~~~~~~~~
+TypeError: can only concatenate list (not "int") to list
+2024-06-04 21:43:17,916 - root - ERROR - Error in handle_repeat_wrong_and_skipped: can only concatenate list (not "int") to list
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 70, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 828, in handle_repeat_wrong_and_skipped
+    bot.send_message(user_id, data + len(data)+data[4])
+                              ~~~~~^~~~~~~~~~~
+TypeError: can only concatenate list (not "int") to list
+2024-06-04 21:43:35,755 - root - ERROR - Error in handle_repeat_wrong_and_skipped: can only concatenate list (not "int") to list
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 70, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 828, in handle_repeat_wrong_and_skipped
+    bot.send_message(user_id, data + len(data)+data[4])
+                              ~~~~~^~~~~~~~~~~
+TypeError: can only concatenate list (not "int") to list
+2024-06-04 21:45:28,715 - root - ERROR - Error in handle_repeat_wrong_and_skipped: can only concatenate list (not "int") to list
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 70, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 828, in handle_repeat_wrong_and_skipped
+    bot.send_message(user_id, data + len(data)+data[4])
+                              ~~~~~^~~~~~~~~~~
+TypeError: can only concatenate list (not "int") to list
+2024-06-04 21:47:38,669 - root - ERROR - Error in handle_repeat_wrong_and_skipped: can only concatenate list (not "int") to list
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 70, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 829, in handle_repeat_wrong_and_skipped
+    bot.send_message(user_id, data + len(data)+data[4])
+                              ~~~~~^~~~~~~~~~~
+TypeError: can only concatenate list (not "int") to list
+2024-06-04 21:49:12,899 - root - ERROR - Error in handle_repeat_wrong_and_skipped: can only concatenate list (not "int") to list
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 70, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 829, in handle_repeat_wrong_and_skipped
+    print(data + len(data)+data[4])
+          ~~~~~^~~~~~~~~~~
+TypeError: can only concatenate list (not "int") to list
+2024-06-05 18:02:14,074 - root - ERROR - Error in handle_cancel_reminder: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '!' is reserved and must be escaped with the preceding '\'
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 67, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 914, in handle_cancel_reminder
+    bot.send_message(call.message.chat.id, '\u0422\u044b \u043e\u0442\u043f\u0438\u0441\u0430\u043b\u0441\u044f \u043e\u0442 \u043d\u0430\u043f\u043e\u043c\u0438\u043d\u0430\u043d\u0438\u0439, \u043d\u043e \u044f \u0431\u0443\u0434\u0443 \u0441\u043a\u0443\u0447\u0430\u0442\u044c! \U0001f43e\U0001f63f '
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1751, in send_message
+    apihelper.send_message(
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 271, in send_message
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '!' is reserved and must be escaped with the preceding '\'
+2024-06-05 21:05:04,770 - root - ERROR - Error in handle_cancel_reminder: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\'
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 67, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 914, in handle_cancel_reminder
+    bot.send_message(call.message.chat.id, '\u0422\u044b \u043e\u0442\u043f\u0438\u0441\u0430\u043b\u0441\u044f \u043e\u0442 \u043d\u0430\u043f\u043e\u043c\u0438\u043d\u0430\u043d\u0438\u0439, \u0438 \u044f \u0431\u0443\u0434\u0443 \u0441\u043a\u0443\u0447\u0430\u0442\u044c\\! \U0001f43e\U0001f63f\n '
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1751, in send_message
+    apihelper.send_message(
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 271, in send_message
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\'
+2024-06-05 22:59:57,246 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\'
+2024-06-05 22:59:57,247 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1215, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 150, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 8449, in _run_middlewares_and_handler
+    result = handler['function'](message)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 1146, in handle_text_report
+    send_report_messages(bot, call.message.chat.id, report_lines)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 1127, in send_report_messages
+    bot.send_message(chat_id, message, parse_mode='MarkdownV2')
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1751, in send_message
+    apihelper.send_message(
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 271, in send_message
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\'
+
+2024-06-05 23:00:06,694 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\'
+2024-06-05 23:00:06,694 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1215, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 150, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 8449, in _run_middlewares_and_handler
+    result = handler['function'](message)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 1146, in handle_text_report
+    send_report_messages(bot, call.message.chat.id, report_lines)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 1127, in send_report_messages
+    bot.send_message(chat_id, message, parse_mode='MarkdownV2')
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1751, in send_message
+    apihelper.send_message(
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 271, in send_message
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\'
+
+2024-06-05 23:00:09,577 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\'
+2024-06-05 23:00:09,578 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1215, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 150, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 8449, in _run_middlewares_and_handler
+    result = handler['function'](message)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 1146, in handle_text_report
+    send_report_messages(bot, call.message.chat.id, report_lines)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 1127, in send_report_messages
+    bot.send_message(chat_id, message, parse_mode='MarkdownV2')
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1751, in send_message
+    apihelper.send_message(
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 271, in send_message
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\'
+
+2024-06-05 23:02:55,979 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+2024-06-05 23:02:55,981 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1215, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 150, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 8449, in _run_middlewares_and_handler
+    result = handler['function'](message)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 1143, in handle_text_report
+    send_report_messages(bot, call.message.chat.id, report_lines)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 1124, in send_report_messages
+    bot.send_message(chat_id, message, parse_mode='MarkdownV2')
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1751, in send_message
+    apihelper.send_message(
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 271, in send_message
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+
+2024-06-05 23:06:17,868 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+2024-06-05 23:06:17,870 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1215, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 150, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 8449, in _run_middlewares_and_handler
+    result = handler['function'](message)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 1149, in handle_text_report
+    send_report_messages(bot, call.message.chat.id, report_lines)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 1130, in send_report_messages
+    bot.send_message(chat_id, message, parse_mode='MarkdownV2')
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1751, in send_message
+    apihelper.send_message(
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 271, in send_message
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+
+2024-06-05 23:17:16,960 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+2024-06-05 23:17:16,961 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1215, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 150, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 8449, in _run_middlewares_and_handler
+    result = handler['function'](message)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 1149, in handle_text_report
+    send_report_messages(bot, call.message.chat.id, report_lines)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 1130, in send_report_messages
+    bot.send_message(chat_id, message, parse_mode='MarkdownV2')
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1751, in send_message
+    apihelper.send_message(
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 271, in send_message
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+
+2024-06-05 23:19:42,663 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+2024-06-05 23:19:42,664 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1215, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 150, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 8449, in _run_middlewares_and_handler
+    result = handler['function'](message)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 1151, in handle_text_report
+    send_report_messages(bot, call.message.chat.id, report_lines)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\main.py", line 1132, in send_report_messages
+    bot.send_message(chat_id, message, parse_mode='MarkdownV2')
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1751, in send_message
+    apihelper.send_message(
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 271, in send_message
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+
+2024-06-06 02:13:44,978 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-06 02:13:44,979 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-06 02:13:48,763 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-06 02:13:48,764 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-06 02:13:53,019 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-06 02:13:53,019 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-06 02:13:58,289 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-06 02:13:58,290 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-06 02:14:05,544 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-06 02:14:05,544 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-06 02:14:13,804 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-06 02:14:13,804 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-06 02:14:30,058 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-06 02:14:30,059 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-06 02:15:02,310 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-06 02:15:02,311 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-06 02:15:37,850 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-06 02:15:37,851 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+2024-06-06 02:16:41,350 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2024-06-06 02:16:41,351 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 1214, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 111, in raise_exceptions
+    raise self.exception_info
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\util.py", line 93, in run
+    task(*args, **kwargs)
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 676, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\__init__.py", line 648, in get_updates
+    json_updates = apihelper.get_updates(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 328, in get_updates
+    return _make_request(token, method_url, params=payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 168, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\buddy\PycharmProjects\My-coding-PythonCat\.venv\Lib\site-packages\telebot\apihelper.py", line 195, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+

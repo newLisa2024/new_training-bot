@@ -1,13 +1,15 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import sqlite3
 import json
 import os
+import re
 import openai
 from openai import OpenAI
-from config import PROXY_API
+from config import PROXY_API, UNIVERSITY_OPEN_API, STICKER_THUMBS_UP_CAT, PROMPT_CHAT, PROMPT_CHAT_GET_ANSWER
+import telebot
 
 # OpenAI API key
-client = OpenAI(api_key=PROXY_API,
+client = OpenAI(api_key=UNIVERSITY_OPEN_API,
                 base_url="https://api.proxyapi.ru/openai/v1")
 
 class Training_db:
@@ -34,6 +36,40 @@ class Training_db:
             print(f'Пользователь {user_id} успешно добавлен в базу данных.')
         except sqlite3.IntegrityError:
             print(f'Пользователь {user_id} уже существует в базе данных.')
+        except sqlite3.Error as e:
+            print(f'Ошибка при работе с базой данных: {e}')
+        finally:
+            conn.close()
+
+    def activate_user(self, user_id):
+        conn = self._connect()
+        cursor = conn.cursor()
+
+        try:
+            cursor.execute('''
+            UPDATE Users
+            SET is_active = 1
+            WHERE user_id = ?
+            ''', (user_id,))
+            conn.commit()
+            print(f'Пользователь {user_id} успешно активирован.')
+        except sqlite3.Error as e:
+            print(f'Ошибка при работе с базой данных: {e}')
+        finally:
+            conn.close()
+
+    def deactivate_user(self, user_id):
+        conn = self._connect()
+        cursor = conn.cursor()
+
+        try:
+            cursor.execute('''
+            UPDATE Users
+            SET is_active = 0
+            WHERE user_id = ?
+            ''', (user_id,))
+            conn.commit()
+            print(f'Пользователь {user_id} успешно деактивирован.')
         except sqlite3.Error as e:
             print(f'Ошибка при работе с базой данных: {e}')
         finally:
@@ -137,6 +173,30 @@ class Training_db:
             conn.close()
         return correct_answers_count, total_questions_count
 
+    def get_question_topic(self, question_id):
+        # Подключение к базе данных
+        conn = self._connect()
+        cursor = conn.cursor()
+
+        # Выполнение запроса для получения темы вопроса
+        cursor.execute('''
+           SELECT question_topic
+           FROM Questions
+           WHERE question_id = ?
+           ''', (question_id,))
+
+        # Извлечение результата
+        result = cursor.fetchone()
+
+        # Закрытие соединения
+        conn.close()
+
+        # Возвращение темы вопроса, если результат найден
+        if result:
+            return result[0]
+        else:
+            return None
+
     def get_list_of_10_questions(self, user_id, question_topic):
         conn = self._connect()
         cursor = conn.cursor()
@@ -149,10 +209,13 @@ class Training_db:
                 LEFT JOIN Answers a ON q.question_id = a.question_id AND a.user_id = ?
                 WHERE a.user_id IS NULL
                     OR (
-                        NOT (a.last_skipped_day = ?) 
+                        ( (a.last_skipped_day != ? OR a.last_skipped_day IS NULL) 
                         AND NOT (a.is_correct = 0 AND  a.last_answer_date = ?)
-                        AND ( 
-                             a.is_correct = 1 
+                        AND (a.is_correct = 0 or a.is_correct IS NULL))
+
+                        OR ( 
+                             (a.last_skipped_day != ? OR a.last_skipped_day IS NULL)
+                             AND a.is_correct = 1 
                              AND ( 
                                  (a.number_of_correct_answers = 1 AND (julianday(?) - julianday(a.last_correct_answer_date)) >= 1)
                                  OR (a.number_of_correct_answers = 2 AND (julianday(?) - julianday(a.last_correct_answer_date)) >= 6)
@@ -168,7 +231,7 @@ class Training_db:
                 '''
                 params = (
                     user_id, today_date, today_date, today_date, today_date, today_date, today_date, today_date,
-                    today_date
+                    today_date, today_date
                 )
             else:
                 query = '''
@@ -179,11 +242,15 @@ class Training_db:
                     OR (
                        q.question_topic = ?
                        AND
-                          (
-                            NOT (a.last_skipped_day = ?) 
-                            AND NOT (a.is_correct = 0 AND  a.last_answer_date = ?)
-                            AND ( 
-                                 a.is_correct = 1 
+
+                            ((a.last_skipped_day != ? OR a.last_skipped_day IS NULL)
+                             AND NOT (a.is_correct = 0 AND  a.last_answer_date = ?)
+                             AND (a.is_correct = 0 or a.is_correct IS NULL)))
+
+                            OR ( q.question_topic = ?
+                            AND (
+                                 (a.last_skipped_day != ? OR a.last_skipped_day IS NULL)
+                                 AND a.is_correct = 1 
                                  AND ( 
                                      (a.number_of_correct_answers = 1 AND (julianday(?) - julianday(a.last_correct_answer_date)) >= 1)
                                      OR (a.number_of_correct_answers = 2 AND (julianday(?) - julianday(a.last_correct_answer_date)) >= 6)
@@ -194,13 +261,13 @@ class Training_db:
                                  )                   
                             )
                           )
-                       )   
+
                 ORDER BY q.question_frequency DESC
                 LIMIT 10
                 '''
                 params = (
-                    user_id, question_topic, question_topic, today_date, today_date, today_date, today_date, today_date,
-                    today_date, today_date, today_date
+                    user_id, question_topic, question_topic, today_date, today_date,question_topic, today_date, today_date, today_date,
+                    today_date, today_date, today_date, today_date
                 )
 
             cursor.execute(query, params)
@@ -307,6 +374,66 @@ class Training_db:
         finally:
             conn.close()
 
+    def get_incorrect_answers_count_period(self, user_id, topic=None, days=7):
+        conn = self._connect()
+        cursor = conn.cursor()
+        try:
+            if topic:
+                query = '''
+                SELECT COUNT(*)
+                FROM Answers
+                JOIN Questions ON Answers.question_id = Questions.question_id
+                WHERE Answers.user_id = ? AND Questions.question_topic = ? 
+                AND Answers.is_correct = 0 
+                AND DATE(Answers.last_answer_date) >= DATE('now', ?)
+                '''
+                params = (user_id, topic, f'-{days} day')
+            else:
+                query = '''
+                SELECT COUNT(*)
+                FROM Answers
+                WHERE user_id = ? 
+                AND is_correct = 0 
+                AND DATE(last_answer_date) >= DATE('now', ?)
+                '''
+                params = (user_id, f'-{days} day')
+
+            cursor.execute(query, params)
+            count = cursor.fetchone()[0]
+            return count
+        finally:
+            conn.close()
+
+    def get_skipped_answers_count_period(self, user_id, topic=None, days=7):
+        conn = self._connect()
+        cursor = conn.cursor()
+        try:
+            if topic:
+                query = '''
+                SELECT COUNT(*)
+                FROM Answers
+                JOIN Questions ON Answers.question_id = Questions.question_id
+                WHERE Answers.user_id = ? AND Questions.question_topic = ? 
+                AND Answers.number_of_times_skipped > 0 
+                AND DATE(Answers.last_skipped_day) >= DATE('now', ?)
+                '''
+                params = (user_id, topic, f'-{days} day')
+            else:
+                query = '''
+                SELECT COUNT(*)
+                FROM Answers
+                WHERE user_id = ? 
+                AND number_of_times_skipped > 0 
+                AND DATE(last_skipped_day) >= DATE('now', ?)
+                '''
+                params = (user_id, f'-{days} day')
+
+            cursor.execute(query, params)
+            count = cursor.fetchone()[0]
+            return count
+        finally:
+            conn.close()
+
     def get_inactive_users(self):
         conn = self._connect()
         cursor = conn.cursor()
@@ -391,7 +518,7 @@ class Training_db:
             avg_attempts = cursor.fetchone()[0]
             if avg_attempts is None:
                 avg_attempts = 0
-            return round(avg_attempts, 2)
+            return int(round(avg_attempts, 2))
         finally:
             conn.close()
 
@@ -399,13 +526,11 @@ class Training_db:
         conn = self._connect()
         cursor = conn.cursor()
         try:
-            today_date = datetime.now().strftime('%Y-%m-%d')
             if topic:
                 query = '''
                 UPDATE Answers
-                SET is_correct = 0,
+                SET is_correct = NULL,
                     number_of_attempts = 0,
-                    last_answer_date = ?,
                     number_of_times_skipped = 0,
                     last_skipped_day = NULL,
                     last_correct_answer_date = NULL,
@@ -414,20 +539,49 @@ class Training_db:
                     SELECT question_id FROM Questions WHERE question_topic = ?
                 )
                 '''
-                cursor.execute(query, (today_date, user_id, topic))
+                cursor.execute(query, (user_id, topic))
             else:
                 query = '''
                 UPDATE Answers
-                SET is_correct = 0,
+                SET is_correct = NULL,
                     number_of_attempts = 0,
-                    last_answer_date = ?,
                     number_of_times_skipped = 0,
                     last_skipped_day = NULL,
                     last_correct_answer_date = NULL,
                     number_of_correct_answers = 0
                 WHERE user_id = ?
                 '''
-                cursor.execute(query, (today_date, user_id))
+                cursor.execute(query, (user_id))
+            conn.commit()
+        finally:
+            conn.close()
+
+    def repeat_wrong_and_skipped_questions(self, user_id, topic=None):
+        conn = self._connect()
+        cursor = conn.cursor()
+        try:
+            if topic:
+                query = '''
+                UPDATE Answers
+                SET is_correct = NULL,
+                    last_skipped_day = NULL
+
+                WHERE user_id = ? AND (is_correct = 0 OR is_correct IS NULL) 
+                AND (question_id IN (
+                    SELECT question_id FROM Questions WHERE question_topic = ?
+                ))
+                '''
+                cursor.execute(query, (user_id, topic))
+            else:
+                query = '''
+
+                UPDATE Answers
+                SET is_correct = NULL,
+                    last_skipped_day = NULL
+
+                WHERE user_id = ? AND (is_correct = 0 OR is_correct IS NULL)
+                '''
+                cursor.execute(query, (user_id))
             conn.commit()
         finally:
             conn.close()
@@ -452,10 +606,18 @@ class Training_db:
         conn = self._connect()
         cursor = conn.cursor()
         try:
-            today_date = datetime.now().strftime('%Y-%м-%д')
-            is_correct = 1 if feedback.startswith('Правильный') else 0
+            today_date = datetime.now().strftime('%Y-%m-%d')
+            # Ограничиваем строку первыми 50 символами
+            first_30_chars = feedback[:30]
+
+            # Регулярное выражение для поиска слова "Хороший"
+            pattern = re.compile(r'\bХороший\b')
+
+            is_correct = 1 if pattern.search(first_30_chars) else 0
+
 
             if is_correct:
+
                 cursor.execute("""
                     INSERT INTO Answers (user_id, question_id, is_correct, number_of_attempts, last_answer_date, last_correct_answer_date, number_of_correct_answers)
                     VALUES (?, ?, ?, 1, ?, ?, 1)
@@ -477,6 +639,7 @@ class Training_db:
                 """, (user_id, question_id, is_correct, today_date))
 
             conn.commit()
+            return is_correct
         finally:
             conn.close()
 
@@ -518,7 +681,7 @@ def read_current_questions(user_id):
                 data["state"] = "None"
             if "last_question_text" not in data:
                 data["last_question_text"] = None
-            print(f"Read data for user {user_id}: {data}")
+
             return data
     return {"questions": {}, "last_question_id": None, "last_question_text": None, "timer_message_id": None, "timer_start_time": None, "state": "None"}
 
@@ -557,8 +720,6 @@ def clear_user_questions(user_id, topic_id=None):
     else:
         key = f"all_{user_id}"
 
-    print(f"Trying to delete key: {key}")
-    print(f"Current keys before deletion: {data['questions'].keys()}")
 
     if key in data["questions"]:
         del data["questions"][key]
@@ -567,7 +728,7 @@ def clear_user_questions(user_id, topic_id=None):
     else:
         print(f"Key not found: {key}")
 
-    print(f"Current keys after deletion: {data['questions'].keys()}")
+
 
 
 #REMINDER
@@ -591,72 +752,28 @@ def get_day_word(days):
 
 #Получение фидбэка от Чата
 
-prompt = f"""Действуй как опытный HR специалист, собеседующий кандидатов
-       на позицию джуниор по Python.
-   Ты задал вопрос: "{question}"
-   и принял ответ соискателя: "{user_response}".
-   Ты должен оценить ответ и дать обратную связь. Ответы на вопросы ожидаются на
-   уровне требований к джуниор позиции. В комментарии дополняй ответы так,
-    как ответил бы опытный программист по Python.
-    Начни ответ с 'Неправильный ответ' если ответ неправильный,
-     и, пропустив строку, продолжи правильным ответом,
-     а далее кратким комментарием, почему ответ пользователя был
-     неправильным. Начни ответ с 'Правильный ответ'
-     если ответ правильный, и, пропустив строку, продолжи небольшими дополнениями до
-     идеального ответа от опытного программиста по Python.
-   Твоя оценка должна иметь такую структуру:
-   - Правильный/неправильный ответ
-   - Правильный ответ (если ответ был неправильный)
-   - Комментарии по ответу."""
-
-# prompt = f'''Я задаю пользователю вопрос "{question}".
-#     Тематика вопросов касается программирования на языке Python.
-#     Вопросы с интервью на позицию Junior разработчика.
-#     Ответ пользователя: "{user_response}"
-#     Твоя задача — оценить, правильный ли ответ или нет.
-#     Строго придерживайся структуры:
-#     1. Сделай оценку ответа и начни сообщение фразой
-#     "Правильный ответ"/"Так держать!"/"Неправильный ответ”.
-#     Пиши “Правильный”, если ответ правильный (всегда помни, что ты слушаешь ответы
-#     начинающего программиста, и ответ может быть не совсем точным,
-#     но смысл передан верно).
-#     Пиши "Так держать!", если ответ неполный.
-#     Пиши "Неправильный", если ответ отсутствует или совершенно не соответствует запросу.
-#     2.Объясни, почему ответ был правильным/неполным/неправильным.
-#     3.Напиши, каким был бы ответ идеального кандидата.'''
 
 def get_feedback(question, user_response):
-    prompt = f"""Действуй как опытный HR специалист, собеседующий кандидатов
-       на позицию джуниор по Python.
-       Ты задал вопрос: "{question}"
-       и принял ответ соискателя: "{user_response}".
-        два варианта вопросов: вопрос по теме программирования и вопросы от HR 
-       про личные качества и опыт.
-       Если вопрос по теме личных качеств и опыта, то начни ответ с "Так держать!",
-        если ответ плохой с точки 
-       зрения HR, и в комментарии напиши ответ идеального соискателя.
-        Если ответ правильный, то напиши
-        "Правильный ответ" и в комментарии представь ответ идеального соискателя. 
-       Если вопрос по теме программирования, Ты должен оценить ответ и дать обратную связь. 
-       Ответы на вопросы ожидаются на
-       уровне требований к джуниор позиции. В комментарии дополняй ответы так,
-       как ответил бы опытный программист по Python. Начни ответ с 'Неправильный ответ' 
-       если ответ неправильный,
-       и, пропустив строку, продолжи правильным ответом,
-         а далее кратким комментарием, почему ответ пользователя был
-         неправильным. Начни ответ с 'Правильный ответ'
-         если ответ правильный, и, пропустив строку, продолжи небольшими дополнениями до
-         идеального ответа от опытного программиста по Python.
-       Твоя оценка должна иметь такую структуру:
-       - Правильный/неправильный ответ
-       - Правильный ответ (если ответ был неправильный)
-       - Комментарии по ответу."""
+    prompt = f"""Ты опытный HR специалист, собеседующий кандидатов
+           на позицию джуниор по Python.
+           Ответы на вопросы ожидаются на
+           уровне требований к джуниор позиции.
+           Структура твоей оценки, все пункты обязательны:
+           Хороший ответ/Неполный ответ\n
+           Краткая обратная связь на ответ пользователя\n
+           Краткий правильный ответ от опытного программиста на Пайтон. Если вопрос по программированию, включай код\n.
+            Оценивай как Хороший ответ, если в ответе правильно
+            передан смысл. Оценивай как Неполный ответ,если ответ отсутствует или
+            не соответствует запросу\n
+            Ответ пиши **без** заголовков.
+           """
 
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo-16k",
+        #model="gpt-3.5-turbo-16k",
+        model="gpt-4o",
         messages=[
-            {"role": "system", "content": "Ты опытный HR специалист."},
-            {"role": "user", "content": prompt}
+            {"role": "system", "content": prompt},
+            {"role": "user", "content": f"Ты задал вопрос: {question} и принял ответ соискателя: {user_response}. Оцени ответ."}
         ]
     )
     return response.choices[0].message.content
@@ -664,22 +781,35 @@ def get_feedback(question, user_response):
 #если в базе ответов нет ответа, то создаем его по требованию
 def question_answer_from_ChatGPT(question):
     prompt = f"""Ты опытный программист, специалист по Python.
-    Вот вопрос для интервью на позицию программиста Python: "{question}".
-    Ты должен ответить на этот вопрос, как если бы ты сам проходил интервью.
-    Твой ответ должен быть полным и профессиональным."""
+    Твой ответ должен быть кратким, но полным и профессиональным. Отвечай только на русском,
+    используя английскую терминологию по языку Пайтон, если нужно. Если вопрос по программированию, включай код"""
 
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo-16k",
+        #model="gpt-3.5-turbo-16k",
+        model="gpt-4o",
         messages=[
-            {"role": "system", "content": "Ты опытный HR специалист."},
-            {"role": "user", "content": prompt}
+            {"role": "system", "content": prompt},
+            {"role": "user", "content": f"Ответь на вопрос с интервью на позицию программиста Python: {question}"}
         ]
     )
     return response.choices[0].message.content
 
 
 
+def question_detailed_answer_from_ChatGPT(question):
+    prompt = f"""Ты опытный программист, специалист по Python.
+    Твой ответ должен быть полным, развернутым. Дай детальное обьяснение с примерами для начинающего программиста по Python. Отвечай только на русском,
+    используя английскую терминологию по языку Пайтон, если нужно. Если вопрос по программированию, включай код. Максимум 8000 знаков."""
 
+    response = client.chat.completions.create(
+        #model="gpt-3.5-turbo-16k",
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": prompt},
+            {"role": "user", "content": f"Ответь на вопрос с интервью на позицию программиста Python: {question}"}
+        ]
+    )
+    return response.choices[0].message.content
 
 
 

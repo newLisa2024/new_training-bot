@@ -1,6 +1,6 @@
 import sqlite3
 def get_recent_questions(limit=10):
-    conn = sqlite3.connect('trainingbot.db')
+    conn = sqlite3.connect('../trainingbot.db')
     cursor = conn.cursor()
 
     cursor.execute('SELECT * FROM Questions ORDER BY question_id DESC LIMIT ?', (limit,))
@@ -16,7 +16,7 @@ for question in recent_questions:
 import sqlite3
 
 def count_questions():
-    conn = sqlite3.connect('trainingbot.db')
+    conn = sqlite3.connect('../trainingbot.db')
     cursor = conn.cursor()
 
     cursor.execute('SELECT COUNT(*) FROM Questions')
