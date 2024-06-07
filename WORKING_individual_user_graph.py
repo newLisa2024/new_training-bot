@@ -12,27 +12,29 @@ def draw_progress_bar(user_id, current, total, topic):
         raise ValueError("user_id cannot be None")
 
     progress = current / total
-    fig, ax = plt.subplots(figsize=(8, 2))  # Уменьшить ширину фигуры
+    #fig, ax = plt.subplots(figsize=(8, 2))  # Уменьшить ширину фигуры
+
+    fig, ax = plt.subplots(figsize=(2.5, 1))
 
     # Устанавливаем цвет фона для всей фигуры
-    fig.patch.set_facecolor('#F0FFBF')#ABEBC6
+    fig.patch.set_facecolor('#d0f0c0')#ABEBC6 #F0FFBF'
 
     # Устанавливаем цвет фона осей
     ax.set_facecolor('#000000')
 
     # Размеры и координаты
-    bar_height = 0.3  # Установить высоту бара
+    bar_height = 0.2  # Установить высоту бара
     bar_width = 1.0
     progress_width = progress * bar_width
 
     # Отступ слева
-    left_margin = 0.01
+    left_margin = 0.02
 
     # Фон прогресс-бара
     # Фон прогресс-бара с фиолетовой рамкой
     background_bar = patches.Rectangle((left_margin, 0.5 - bar_height / 2),
                                        bar_width, bar_height,
-                                       linewidth=2, edgecolor='#6C3483', facecolor='#D3D3D3')
+                                       linewidth=1, edgecolor='#6C3483', facecolor='#D3D3D3')
     ax.add_patch(background_bar)
 
     # Прогресс
@@ -45,13 +47,13 @@ def draw_progress_bar(user_id, current, total, topic):
     # Текст внутри шкалы прогресса (пройденные вопросы)
     if progress_width < 0.08:  # Если прогресс слишком мал для текста внутри бара
         ax.text(left_margin + progress_width + 0.01, 0.5, f'{current}', horizontalalignment='left', verticalalignment='center',
-                fontsize=24, color='black')
+                fontsize=8, color='black')
     else:
         ax.text(left_margin + progress_width - 0.02, 0.5, f'{current}', horizontalalignment='right', verticalalignment='center',
-                fontsize=24, color='black')
+                fontsize=8, color='black')
 
     # Текст справа от шкалы (всего вопросов)
-    ax.text(left_margin + bar_width + 0.01, 0.5, f'{total}', horizontalalignment='left', verticalalignment='center', fontsize=24,
+    ax.text(left_margin + bar_width + 0.01, 0.5, f'{total}', horizontalalignment='left', verticalalignment='center', fontsize=8,
             color='black')
 
     # Настройки осей
@@ -70,7 +72,7 @@ def draw_progress_bar(user_id, current, total, topic):
     if filename is None or filename == '':
         raise ValueError("Filename cannot be None or empty")
 
-    plt.savefig(filename, bbox_inches='tight', pad_inches=0, facecolor=fig.get_facecolor())
+    plt.savefig(filename, bbox_inches='tight', pad_inches=0, facecolor=fig.get_facecolor(), dpi=300)
 
     # Закрыть фигуру
     plt.close()

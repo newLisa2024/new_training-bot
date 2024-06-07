@@ -2,3 +2,5 @@
 2: https://t.me/Test_buddyroo_bot?start=CD34
 3: https://t.me/Test_buddyroo_bot?start=EF56
 4: https://t.me/Test_buddyroo_bot?start=GH78
+https://t.me/PythonKot_bot?start=AB12
+

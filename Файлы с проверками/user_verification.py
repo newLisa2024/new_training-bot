@@ -1,9 +1,6 @@
 import telebot
-import json
 from config import BOT_TOKEN
 from Getcourse_db import *
-from db import *
-
 
 bot = telebot.TeleBot(BOT_TOKEN)
 

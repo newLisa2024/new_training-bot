@@ -30,9 +30,11 @@ buttons_dict = {
     'start_test': 'Начать тест',
     'all_questions': 'Все вопросы',
     'choose_topic': 'Выбрать тему',
-    'see_answer_all': 'Узнать ответ👀',
+    'see_answer_all': 'Узнать ответ 👀',
     'next_question_all': '❓ Следующий',
-    'detailed_statistics':'📑 Подробный',
+    'detailed_statistics':'📝 Подробный',
+    'repeat_wrong_and_skipped': 'Повтор неверных',
+    'subscribe': 'Включить напоминания 🔔',
 
     #'left': "⬅️",
     #'right': "➡️",
@@ -68,6 +70,11 @@ def create_skip_question_button(topic_index):
 
 def create_next_question_button(topic_index):
     return (f'next_question_{topic_index}', '❓ Следующий')
+
+def create_see_full_answer_button(topic_index):
+    return (f'see_full_answer_{topic_index}', '🔍 Детальный ответ')
+
+
 
 
 #при ошибке бот прекращает работу, а должен перезапускаться

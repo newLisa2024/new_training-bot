@@ -4,7 +4,7 @@ import sqlite3
 import logging
 
 # Настройка логирования
-logging.basicConfig(filename='parsing_log.txt', level=logging.INFO, format='%(asctime)s - %(message)s')
+logging.basicConfig(filename='Файлы с проверками/parsing_log.txt', level=logging.INFO, format='%(asctime)s - %(message)s')
 
 
 # Функция для создания базы данных и таблиц

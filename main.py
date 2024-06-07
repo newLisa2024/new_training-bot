@@ -1,30 +1,14 @@
-import threading
 from statistics_text import *
 import pandas as pd
-import matplotlib.pyplot as plt
-import os
 import schedule
 import threading
-import time
-import sqlite3
-from datetime import datetime, timedelta
-import telebot
-from telebot import types
-import telebot
-import os
+from terminology_short import *
 import subprocess
-from openai import OpenAI
-
-from PIL import Image
 import io
-
-import telebot
-from datetime import datetime
 import time
 import random
-from config import BOT_TOKEN, params, STICKER_CAT, STICKER_SUCCESS, STICKER_HR, WHISPER_API, PROXY_API
+from config import BOT_TOKEN, params, STICKER_CAT, STICKER_SUCCESS, STICKER_HR, LINUX_FFMPEG_PATH
 from GetCourse_Backend import *
-from db import *
 from Frontend import *
 from Backend import *
 from WORKING_individual_user_graph import *
@@ -94,17 +78,22 @@ def create_inline_keyboard(button_keys):
             if key.startswith('skip_question_'):
                 buttons.append(types.InlineKeyboardButton(text='❌ Пропустить', callback_data=key))
             elif key.startswith('see_answer_'):
-                buttons.append(types.InlineKeyboardButton(text='👀 Ответ', callback_data=key))
+                buttons.append(types.InlineKeyboardButton(text='Узнать ответ 👀', callback_data=key))
             elif key.startswith('next_question_'):
                 buttons.append(types.InlineKeyboardButton(text='❓ Следующий', callback_data=key))
+            elif key.startswith('see_full_answer_'):
+                buttons.append(types.InlineKeyboardButton(text='Объясни получше 💡', callback_data=key))
+            elif key.startswith('again_wrong_and_skipped_'):
+                buttons.append(types.InlineKeyboardButton(text='↺ Повторить', callback_data=key))
     keyboard.add(*buttons)
     return keyboard
 
 
-def remove_timer_message(chat_id, message_id):
+def remove_timer_message(chat_id, message_id, index):
     time.sleep(timer_seconds)
     current_questions = read_current_questions(chat_id)
     stored_message_id = current_questions.get("timer_message_id")
+    stored_state = current_questions.get("state")
 
     # Check if the message ID matches the stored timer message ID
     if message_id == stored_message_id:
@@ -112,8 +101,18 @@ def remove_timer_message(chat_id, message_id):
             bot.delete_message(chat_id, message_id)
             current_questions["timer_message_id"] = None  # Update to None once deleted
             write_current_questions(chat_id, current_questions)
+            bot.send_message(chat_id, "⏰ Время истекло. Помни, что тут ты тренируешься."
+                                      " и в следующий раз у тебя получится!💪\n"
+                                      "Ты можешь перейти к следующему вопросу "
+                                      "или посмотреть ответ.",
+                             reply_markup=create_inline_keyboard([f'next_question_{index}',f'see_answer_{index}','menu']))
+
         except Exception as e:
             print(f"Ошибка при удалении сообщения с таймером: {e}")
+
+
+
+
 
 @error_handler
 @bot.message_handler(commands=['start'])
@@ -156,14 +155,14 @@ def handle_test_mode(call):
         current_questions = read_current_questions(user_id)
         current_questions["state"] = "None"
         write_current_questions(user_id, current_questions)
-        user_status = tdb.is_user_in_db(user_id)
+        #user_status = tdb.is_user_in_db(user_id)
         # проверяем, если пользователь неактивный (is_active = 0),
         # он имеет доступ к тренажеру только в разделе статистики
         # отказываем в доступе к Тестированию
-        if user_status == 0:
-            keyboard = create_inline_keyboard(['menu'])
-            bot.send_message(call.message.chat.id, 'У Вас нет доступа к Тестированию. Пожалуйста, обратитесь к куратору.', reply_markup=keyboard)
-            return
+        #if user_status == 0:
+        #    keyboard = create_inline_keyboard(['menu'])
+        #    bot.send_message(call.message.chat.id, 'У Вас нет доступа к Тестированию. Пожалуйста, обратитесь к куратору.', reply_markup=keyboard)
+        #    return
     except Exception as e:
         bot.send_message(call.message.chat.id, f"Произошла ошибка при проверке пользователя: {e}")
         return
@@ -178,6 +177,7 @@ def handle_test_mode(call):
 @error_handler
 def handle_menu(call):
     user_id = call.from_user.id
+    user_status= tdb.is_user_in_db(user_id)
 
     current_questions = read_current_questions(user_id)
 
@@ -188,12 +188,19 @@ def handle_menu(call):
     current_questions = read_current_questions(user_id)
     current_questions["state"] = "None"
     write_current_questions(user_id, current_questions)
-    user_status = tdb.is_user_in_db(user_id)
+
 
     # Создание клавиатуры и отправка сообщения
-    keyboard = create_inline_keyboard(['test_mode', 'statistics'])
-    bot.send_message(call.message.chat.id, "Выберите раздел", reply_markup=keyboard)
-
+    #if user_status == 0:
+    #    keyboard = create_inline_keyboard(['menu'])
+    #    bot.send_message(call.message.chat.id, 'У Вас нет доступа к Тестированию. Пожалуйста, обратитесь к куратору.', reply_markup=keyboard)
+    #    return
+    if user_status == 0:
+        keyboard = create_inline_keyboard(['test_mode', 'statistics', 'subscribe'])
+        bot.send_message(call.message.chat.id, "Выберите раздел:", reply_markup=keyboard)
+    else:
+        keyboard = create_inline_keyboard(['test_mode', 'statistics'])
+        bot.send_message(call.message.chat.id, "Выберите раздел:", reply_markup=keyboard)
 
 @bot.callback_query_handler(func=lambda call: call.data == 'all_questions')
 @error_handler
@@ -210,10 +217,10 @@ def handle_all_questions(call):
 
         # Создаем прогресс-бар
         filename = draw_progress_bar(user_id, correct_answers_count, total_questions_count, 'all')
-        bot.send_message(call.message.chat.id, f'Вы выбрали все вопросы.\n\nСвой ответ Вы можете как'
-                                               f' напечатать в поле ввода, так и надиктовать голосом.\n\nВаш ответ '
-                                               f'бежит в ChatGPT 3.5 через 96 слоев и 175'
-                                               f' миллиардов параметров. Пожалуйста, будьте '
+        bot.send_message(call.message.chat.id, f'Вы выбрали все вопросы.\n\nНапечатайте ответ '
+                                               f'в поле ввода, или надиктуйте в микрофон.\n\nВаш ответ '
+                                               f'мчит в ChatGPT 4о через сотни слоев и более'
+                                               f' 10 миллиардов параметров. Пожалуйста, будьте '
                                                f'терпеливы, это может занять немного '
                                                f'времени.\n\nВаш прогресс:')
         time.sleep(2)
@@ -252,10 +259,9 @@ def handle_all_questions(call):
         current_questions["timer_start_time"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         write_current_questions(user_id, current_questions)
 
-
-
+        index='all'
         # Удаление таймера через 2 минуты
-        threading.Thread(target=remove_timer_message, args=(call.message.chat.id, msg.message_id)).start()
+        threading.Thread(target=remove_timer_message, args=(call.message.chat.id, msg.message_id, index)).start()
 
         # Инициализация списка вопросов для пользователя из JSON файла
         current_questions = read_current_questions(user_id)
@@ -268,8 +274,14 @@ def handle_all_questions(call):
             write_current_questions(user_id, current_questions)
 
         if not current_questions["questions"][key]:
-            keyboard = create_inline_keyboard(['menu'])
-            bot.send_message(call.message.chat.id, "На сегодня для Вас больше нет вопросов по этой теме. Возвращайтесь завтра!", reply_markup=keyboard)
+            repeat_wrong_and_skipped_button = 'again_wrong_and_skipped_all'
+            keyboard = create_inline_keyboard([repeat_wrong_and_skipped_button, 'menu'])
+            bot.send_message(call.message.chat.id, "На сегодня для Вас больше нет"
+                                                   " вопросов по этой теме."
+                                                   " Вы можете повторить все пропущенные и "
+                                                   "неправильно отвеченные вопросы, "
+                                                   "или просто вернуться завтра!",
+                                                    reply_markup=keyboard)
             return
 
 
@@ -371,11 +383,10 @@ def topic_selected(call):
 
         # Создаем прогресс-бар
         filename = draw_progress_bar(user_id, correct_answers_count, total_questions_count, topic_name)
-        bot.send_message(call.message.chat.id, f'Вы выбрали тему: "{topic_name}".\n\nСвой '
-                                               f'ответ Вы можете как напечатать в поле ввода, так и'
-                                               f' надиктовать голосом.\n\nВаш ответ '
-                                               f'бежит в ChatGPT 3.5 через 96 слоев и 175'
-                                               f' миллиардов параметров. Пожалуйста, будьте '
+        bot.send_message(call.message.chat.id, f'Вы выбрали тему: "{topic_name}".\n\nНапечатайте ответ '
+                                               f'в поле ввода, или надиктуйте в микрофон.\n\nВаш ответ '
+                                               f'мчит в ChatGPT 4о через сотни слоев и более'
+                                               f' 10 миллиардов параметров. Пожалуйста, будьте '
                                                f'терпеливы, это может занять немного '
                                                f'времени.\n\n Ваш прогресс:')
         time.sleep(2)
@@ -410,8 +421,9 @@ def topic_selected(call):
         current_questions["timer_start_time"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         write_current_questions(user_id, current_questions)
 
+
         # Удаление таймера через 2 минуты
-        threading.Thread(target=remove_timer_message, args=(call.message.chat.id, msg.message_id)).start()
+        threading.Thread(target=remove_timer_message, args=(call.message.chat.id, msg.message_id, topic_index)).start()
 
         # Инициализация списка вопросов для пользователя из JSON файла
         current_questions = read_current_questions(user_id)
@@ -432,11 +444,26 @@ def topic_selected(call):
                     bot.delete_message(call.message.chat.id, timer_message_id)
             except Exception as e:
                 print(f"Ошибка при удалении сообщения с таймером: {e}")
-            keyboard = create_inline_keyboard(['choose_topic', 'menu'])
+
+            # Выводим данные из callback-запроса для отладки
+
+
+
+            keyboard = types.InlineKeyboardMarkup(row_width=2)
+            repeat_button = types.InlineKeyboardButton(text='↺ Повторить', callback_data=f'again_wrong_and_skipped_{topic_index}')
+            choose_button = types.InlineKeyboardButton(text='На главную ↲', callback_data='menu')
+            keyboard.add(repeat_button, choose_button)
+
             bot.send_message(call.message.chat.id,
-                             "На сегодня для Вас больше нет вопросов по этой теме. Возвращайтесь завтра!",
-                             reply_markup=keyboard)
+                             "На сегодня для Вас больше нет"
+                                                   " вопросов по этой теме."
+                                                   " Вы можете повторить все пропущенные и "
+                                                   "неправильно отвеченные вопросы, "
+                                                   "или просто вернуться завтра!",
+                                                    reply_markup=keyboard)
             return
+
+
 
 
 
@@ -566,9 +593,8 @@ def handle_skip_question(call):
         write_current_questions(user_id, current_questions)
 
 
-
         # Удаление таймера через 2 минуты
-        threading.Thread(target=remove_timer_message, args=(call.message.chat.id, msg.message_id)).start()
+        threading.Thread(target=remove_timer_message, args=(call.message.chat.id, msg.message_id, topic_index)).start()
 
         # Отправляем следующий вопрос
         if current_questions["questions"][key]:
@@ -589,9 +615,14 @@ def handle_skip_question(call):
             # Удаляем отправленный вопрос из всех списков
             remove_question_from_all_lists(user_id, question_id)
         else:
-            keyboard = create_inline_keyboard(['menu'])
-            bot.send_message(call.message.chat.id, "На сегодня для Вас больше нет вопросов "
-                                                   "по выбранной теме, возвращайтесь завтра.", reply_markup=keyboard)
+            repeat_wrong_and_skipped_button = f'again_wrong_and_skipped_{topic_index}' if topic_index != "all" else 'again_wrong_and_skipped_all'
+            print(repeat_wrong_and_skipped_button)
+            keyboard = create_inline_keyboard([repeat_wrong_and_skipped_button,'menu'])
+            bot.send_message(call.message.chat.id, "На сегодня для Вас больше нет"
+                                                   " вопросов по этой теме."
+                                                   " Вы можете повторить все пропущенные и "
+                                                   "неправильно отвеченные вопросы, "
+                                                   "или просто вернуться завтра!", reply_markup=keyboard)
 
 
     except Exception as e:
@@ -603,6 +634,7 @@ def handle_skip_question(call):
 def handle_see_answer(call):
     user_id = call.from_user.id
     today_date = datetime.now().strftime('%Y-%m-%d')
+    bot.send_message(call.message.chat.id, 'Формируем идеальный ответ. Подождите, пожалуйста.🧘')
 
     try:
 
@@ -640,12 +672,18 @@ def handle_see_answer(call):
             question_topic = list_of_topics[topic_id]
             key = f"{question_topic}_{user_id}"
 
-        # Проверяем наличие правильного ответа в базе данных
-        correct_answer = tdb.get_correct_answer(question_id)
-        if correct_answer is None:
-            # Если правильного ответа нет, запрашиваем его с помощью GPT-3
-            question_text = current_questions["last_question_text"]
-            correct_answer = question_answer_from_ChatGPT(question_text)
+        #Запрашиваем ответ у ЧатаГПТ без консультации с БД
+        question_text = current_questions["last_question_text"]
+
+        correct_answer = question_answer_from_ChatGPT(question_text)
+
+
+        ## Проверяем наличие правильного ответа в базе данных
+        #correct_answer = tdb.get_correct_answer(question_id)
+        #if correct_answer is None:
+        #    # Если правильного ответа нет, запрашиваем его с помощью GPT-3
+        #    question_text = current_questions["last_question_text"]
+        #    correct_answer = question_answer_from_ChatGPT(question_text)
 
 
 
@@ -654,6 +692,81 @@ def handle_see_answer(call):
         max_length = 4096
         for i in range(0, len(correct_answer), max_length):
             bot.send_message(call.message.chat.id, correct_answer[i:i+max_length])
+
+        next_question_key, next_question_text = create_next_question_button(topic_index)
+        see_full_answer_key, see_full_answer_text = create_see_full_answer_button(topic_index)
+
+
+
+        # Добавляем кнопки "Следующий вопрос" и "Главное меню"
+        see_full_answer_button = see_full_answer_key if question_topic != "all" else 'see_full_answer_all'
+        next_question_button = next_question_key if question_topic != "all" else 'next_question_all'
+        keyboard = create_inline_keyboard([next_question_button, 'menu', see_full_answer_button])
+        bot.send_message(call.message.chat.id, "Выберите действие:", reply_markup=keyboard)
+
+    except Exception as e:
+        bot.send_message(call.message.chat.id, f'Произошла ошибка: {e}')
+
+
+@bot.callback_query_handler(func=lambda call: call.data.startswith('see_full_answer'))
+@error_handler
+def handle_see_full_answer(call):
+    user_id = call.from_user.id
+    today_date = datetime.now().strftime('%Y-%m-%d')
+    bot.send_message(call.message.chat.id, 'Сейчас я объясню в подробностях.🔍 Подождите, пожалуйста.')
+
+    try:
+
+
+
+        topic_index = int(call.data.split('_')[3]) if call.data != 'see_full_answer_all' else 'all'
+
+        # Установить состояние пользователя
+        current_questions = read_current_questions(user_id)
+        current_questions["state"] = "None"
+        write_current_questions(user_id, current_questions)
+
+        topic_name = list_of_topics[topic_index] if topic_index != 'all' else 'all'
+
+        current_questions = read_current_questions(user_id)
+        question_id = current_questions.get("last_question_id")
+
+
+        if question_id is None:
+            bot.send_message(call.message.chat.id, "Не удалось найти идентификатор последнего вопроса.")
+            return
+
+
+
+        # Определяем, является ли запрос ответа для всех вопросов или для конкретной темы
+        if call.data == 'see_full_answer_all':
+            key = f"all_{user_id}"
+            question_topic = "all"
+        else:
+            topic_id = int(call.data.split('_')[-1])
+            question_topic = list_of_topics[topic_id]
+            key = f"{question_topic}_{user_id}"
+
+        #Запрашиваем ответ у ЧатаГПТ без консультации с БД
+        question_text = current_questions["last_question_text"]
+
+        detailed_answer = question_detailed_answer_from_ChatGPT(question_text)
+
+
+        ## Проверяем наличие правильного ответа в базе данных
+        #correct_answer = tdb.get_correct_answer(question_id)
+        #if correct_answer is None:
+        #    # Если правильного ответа нет, запрашиваем его с помощью GPT-3
+        #    question_text = current_questions["last_question_text"]
+        #    correct_answer = question_answer_from_ChatGPT(question_text)
+
+
+
+
+        # Разбиваем ответ на части и отправляем
+        max_length = 4096
+        for i in range(0, len(detailed_answer), max_length):
+            bot.send_message(call.message.chat.id, detailed_answer[i:i+max_length])
 
         next_question_key, next_question_text = create_next_question_button(topic_index)
 
@@ -678,6 +791,7 @@ def handle_next_question(call):
         if call.data == 'next_question_all':
             key = f"all_{user_id}"
             topic_name = "all"
+            topic_index = "all"
             state = "next_question_all"
         else:
             topic_index = int(call.data.split('_')[-1])
@@ -701,12 +815,17 @@ def handle_next_question(call):
             write_current_questions(user_id, current_questions)
 
         if not current_questions["questions"][key]:
-            keyboard = create_inline_keyboard(['menu'])
-            bot.send_message(call.message.chat.id, "На сегодня для Вас больше нет вопросов "
-                                                   "по выбранной теме, возвращайтесь завтра.", reply_markup=keyboard)
+            repeat_wrong_and_skipped_button = f'again_wrong_and_skipped_{topic_index}' if topic_index != "all" else 'again_wrong_and_skipped_all'
+            keyboard = create_inline_keyboard([repeat_wrong_and_skipped_button, 'menu'])
+            bot.send_message(call.message.chat.id, "На сегодня для Вас больше нет"
+                                                   " вопросов по этой теме."
+                                                   " Вы можете повторить все пропущенные и "
+                                                   "неправильно отвеченные вопросы, "
+                                                   "или просто вернуться завтра!", reply_markup=keyboard)
             return
 
         # Отправляем GIF таймера
+
         gif_path = 'GIF_timer/countdown.gif'
         with open(gif_path, 'rb') as gif:
             msg = bot.send_animation(call.message.chat.id, gif)
@@ -717,9 +836,9 @@ def handle_next_question(call):
         current_questions["timer_start_time"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         write_current_questions(user_id, current_questions)
 
+
         # Удаление таймера через 2 минуты
-        # Удаление таймера через 2 минуты
-        threading.Thread(target=remove_timer_message, args=(call.message.chat.id, msg.message_id)).start()
+        threading.Thread(target=remove_timer_message, args=(call.message.chat.id, msg.message_id, topic_index)).start()
 
         # Выбираем и отправляем случайный вопрос
         question_to_send = random.choice(current_questions["questions"][key])
@@ -768,7 +887,14 @@ def handle_repeat(call):
     if len(data) == 2 and data[1] == 'all':
         # Повтор всех вопросов
         tdb.reset_answers_for_user(user_id)
-        bot.send_message(call.message.chat.id, 'Все вопросы были сброшены. Вы можете начать заново.')
+
+        # Предлагаем пользователю начать тестирование или выбрать тему
+        keyboard = types.InlineKeyboardMarkup(row_width=2)
+        test_button = types.InlineKeyboardButton(text='Все вопросы', callback_data='all_questions')
+        choose_button = types.InlineKeyboardButton(text='Выбрать тему', callback_data='choose_topic')
+        menu_button = types.InlineKeyboardButton(text='На главную ↲', callback_data='menu')
+        keyboard.add(choose_button, test_button, menu_button)
+        bot.send_message(call.message.chat.id, 'Все вопросы были сброшены. Вы можете начать заново.', reply_markup=keyboard)
     elif len(data) == 2:
         # Повтор вопросов по конкретной теме
         topic_index = int(data[1])
@@ -783,8 +909,98 @@ def handle_repeat(call):
         bot.send_message(call.message.chat.id, f'Все вопросы по теме "{topic_name}" были сброшены. Вы можете начать заново.', reply_markup=keyboard)
 
 
+@bot.callback_query_handler(func=lambda call: call.data.startswith('again_wrong_and_skipped'))
+@error_handler
+def handle_repeat_wrong_and_skipped(call):
+    # Выводим данные из callback-запроса для отладки
+
+    user_id = call.from_user.id
 
 
+    # Установить состояние пользователя
+    current_questions = read_current_questions(user_id)
+    current_questions["state"] = "None"
+    write_current_questions(user_id, current_questions)
+
+
+    data = call.data.split('_')
+
+
+
+    if len(data) == 5 and data[4] == 'all':
+        # Повтор всех вопросов
+
+        tdb.repeat_wrong_and_skipped_questions(user_id)
+
+        # Предлагаем пользователю начать тестирование или выбрать тему
+        keyboard = types.InlineKeyboardMarkup(row_width=2)
+        test_button = types.InlineKeyboardButton(text='Все вопросы', callback_data='all_questions')
+        choose_button = types.InlineKeyboardButton(text='Выбрать тему', callback_data='choose_topic')
+        menu_button = types.InlineKeyboardButton(text='На главную ↲', callback_data='menu')
+        keyboard.add(choose_button, test_button, menu_button)
+        bot.send_message(call.message.chat.id,
+                         'Все неверные и пропущенные вопросы были сброшены. Вы можете начать заново.',
+                         reply_markup=keyboard)
+    elif len(data) == 5:
+        # Повтор вопросов по конкретной теме
+        topic_index = int(data[4])
+        topic_name = list_of_topics[topic_index]
+        tdb.repeat_wrong_and_skipped_questions(user_id, topic_name)
+        # Предлагаем пользователю начать тестирование или выбрать тему
+        keyboard = types.InlineKeyboardMarkup(row_width=2)
+        test_button = types.InlineKeyboardButton(text='Все вопросы', callback_data='all_questions')
+        choose_button = types.InlineKeyboardButton(text='Выбрать тему', callback_data='choose_topic')
+        menu_button = types.InlineKeyboardButton(text='На главную ↲', callback_data='menu')
+        keyboard.add(choose_button, test_button, menu_button)
+        bot.send_message(call.message.chat.id,
+                         f'Все неверные и пропущенные вопросы по теме "{topic_name}" были сброшены. Вы можете начать заново.',
+                         reply_markup=keyboard)
+
+
+@bot.callback_query_handler(func=lambda call: call.data == 'cancel_reminder')
+@error_handler
+def handle_cancel_reminder(call):
+    user_id = call.from_user.id
+
+    # Деактивировать пользователя
+    tdb.deactivate_user(user_id)
+
+    # Создание клавиатуры с кнопками
+    keyboard = types.InlineKeyboardMarkup(row_width=1)
+    subscribe_button = types.InlineKeyboardButton(text='Включить напоминания 🔔', callback_data='subscribe')
+    menu_button = types.InlineKeyboardButton(text='На главную ↲', callback_data='menu')
+    keyboard.add(subscribe_button, menu_button)
+
+    # Отправка сообщения с кнопками
+    bot.send_message(call.message.chat.id, 'Ты отписался от напоминаний, и я буду скучать\\! 🐾😿\n'
+                                            'А пока я пошел выбирать себе элитный корм,'
+                                            'который подобает есть коту успешного программиста\\.\nНажми '
+                                           '"Включить напоминания" и я помогу тебе не '
+                                           'забыть про ~корм~🥣 Питонячие вопросы\\!',
+                                            parse_mode='MarkdownV2',
+                                            reply_markup=keyboard)
+
+
+
+
+
+@bot.callback_query_handler(func=lambda call: call.data == 'subscribe')
+@error_handler
+def handle_subscribe(call):
+    user_id = call.from_user.id
+
+    # Активировать пользователя
+    tdb.activate_user(user_id)
+
+    # Создание клавиатуры с кнопками
+    keyboard = create_inline_keyboard(['menu'])
+    # Отправка кастомного стикера (котика) по его идентификатору
+    sticker_id = STICKER_CAT  # Замените на настоящий идентификатор стикера
+    bot.send_sticker(user_id, sticker_id)
+    # Отправка сообщения с кнопками
+    bot.send_message(call.message.chat.id, 'Ура! Ты подписался на напоминания и мы снова вместе! 🐾😺 '
+                                       'Я помогу тебе не забыть про мечту стать успешным программистом.'
+                                       ' Вдвоём к успеху! 🚀', reply_markup=keyboard)
 #STATISTICS
 
 
@@ -837,8 +1053,9 @@ def create_progress_image(df):
     table.auto_set_font_size(False)
     table.set_fontsize(14)
 
+
     # Раскраска строк таблицы
-    colors = ['#6C3483', '#F0FFBF', '#D3D3D3']  # Цвета строк: черный, фиолетовый, зеленый #ABEBC6
+    colors = ['#6C3483', '#d0f0c0', '#D3D3D3']  # Цвета строк: черный, фиолетовый, зеленый #ABEBC6
     text_colors = ['#FFFFFF', '#000000', '#000000']  # Цвета текста: белый, белый, черный
 
     for key, cell in table.get_celld().items():
@@ -926,6 +1143,11 @@ def get_text_progress_report(user_id, list_of_topics):
         correct_month = tdb.get_correct_answers_count_period(user_id, topic if topic != 'Все темы' else None, days=30)
         total_attempts_week, total_attempts_month = tdb.get_total_attempts(user_id,
                                                                            topic if topic != 'Все темы' else None)
+        incorrect_count_week = tdb.get_incorrect_answers_count_period(user_id, topic if topic != 'Все темы' else None, days=7)
+        incorrect_count_month = tdb.get_incorrect_answers_count_period(user_id, topic if topic != 'Все темы' else None, days=30)
+        skipped_count_week = tdb.get_skipped_answers_count_period(user_id, topic if topic != 'Все темы' else None, days=7)
+        skipped_count_month = tdb.get_skipped_answers_count_period(user_id, topic if topic != 'Все темы' else None, days=30)
+
 
         # Функция для выбора правильного падежа слова "раз"
         def get_raz_word(count):
@@ -939,15 +1161,17 @@ def get_text_progress_report(user_id, list_of_topics):
         report_lines.append('-' * 32)
         report_lines.append(topic)
         report_lines.append('-' * 32)
-        report_lines.append(f"Правильно за неделю:  {correct_week}")
-        report_lines.append(f"Правильно за месяц:  {correct_month}")
-        report_lines.append(f"Всего правильных ответов:  {correct}")
+        report_lines.append(f"Правильно за неделю / месяц:  {correct_week} / {correct_month}.")
+
+        report_lines.append(f"Правильно за все время:  {correct}")
+        report_lines.append(f"Неправильно за неделю / месяц: {incorrect_count_week} / {incorrect_count_month}.")
+
+        report_lines.append(f"Пропущенные вопросы за неделю / месяц: {skipped_count_week} / {skipped_count_month}.")
+
         report_lines.append(f"Всего вопросов по теме:  {total}")
-        report_lines.append(f"Вы отвечаете на вопрос правильно в среднем с {avg_attempts} попытки.")
+        report_lines.append(f"Вы правильно отвечаете на вопрос в среднем с {avg_attempts} попытки.")
         report_lines.append(f"Последний раз Вы отвечали на вопрос этого раздела {last_answer_date}.")
-        report_lines.append(f"Последний раз Вы отвечали на вопрос этого раздела {last_answer_date}.")
-        report_lines.append(
-            f"За неделю Вы попробовали ответить на вопросы из этой темы {total_attempts_week} {get_raz_word(total_attempts_week)}, а за месяц - {total_attempts_month} {get_raz_word(total_attempts_month)}.")
+
 
     return report_lines
 
@@ -994,12 +1218,13 @@ def send_reminders():
         sticker_id = STICKER_CAT  # Замените на настоящий идентификатор стикера
         bot.send_sticker(user_id, sticker_id)
 
-        reminder_text = f"❗❗Прошло уже {days} {day_word}, как ты не идешь в направлении мечты. Давай тренироваться?"
+        reminder_text = f"❗❗Прошло уже {days} {day_word}, как ты не идешь в направлении мечты. Погладь меня и пойдем тренироваться?"
 
         keyboard = types.InlineKeyboardMarkup(row_width=2)
         test_button = types.InlineKeyboardButton(text='❓ Тестирование', callback_data='test_mode')
         menu_button = types.InlineKeyboardButton(text='На главную ↲', callback_data='menu')
-        keyboard.add(test_button, menu_button)
+        cancel_button = types.InlineKeyboardButton(text='Отключить напоминания 🔕', callback_data='cancel_reminder')
+        keyboard.add(test_button, menu_button, cancel_button)
 
         bot.send_message(user_id, reminder_text, reply_markup=keyboard)
 
@@ -1014,20 +1239,22 @@ def run_schedule():
 
 
 # Настройка расписания
-schedule.every().day.at("14:00").do(send_reminders)
+schedule.every().day.at("02:01").do(send_reminders)
 
 
 #VOICE
 
 
 # Ваш API ключ для OpenAI
-OPENAI_API_KEY = WHISPER_API
-client = OpenAI(api_key=OPENAI_API_KEY)
-
+#OPENAI_API_KEY = WHISPER_API
+# OpenAI API key
+client = OpenAI(api_key=UNIVERSITY_OPEN_API,
+                base_url="https://api.proxyapi.ru/openai/v1")
+#client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Укажите полный путь к ffmpeg.exe
-#FFMPEG_PATH = "C:\\Users\\buddy\\AppData\\Local\\ffmpeg\\bin\\ffmpeg.exe"
-FFMPEG_PATH = "/usr/bin/ffmpeg"
+
+FFMPEG_PATH = LINUX_FFMPEG_PATH
 # Создание папки для аудиофайлов
 audio_folder = os.path.join(os.path.dirname(__file__), "user_voice_messages")
 os.makedirs(audio_folder, exist_ok=True)
@@ -1044,7 +1271,9 @@ def handle_voice(message):
         current_questions = read_current_questions(user_id)
         # Получаем текст последнего вопроса
         last_question_text = current_questions.get("last_question_text")
+        last_question_id = current_questions.get("last_question_id")
         state = current_questions.get("state")
+
 
         if not current_questions.get("state").startswith("None"):  # Проверка состояния пользователя
             # Скачиваем голосовое сообщение
@@ -1063,27 +1292,33 @@ def handle_voice(message):
                            stderr=subprocess.PIPE,
                            text=True, timeout=30)
 
+            question_topic = tdb.get_question_topic(last_question_id)
+            topic_index = 'all'
+
+            if question_topic in list_of_topics:
+                topic_index = list_of_topics.index(question_topic)
+
+            # Создание словаря с этими переменными в строку
+            whisper_prompt = {
+                0: prompt_0, 1: prompt_1, 2: prompt_2, 3: prompt_3, 4: prompt_4, 5: prompt_5, 6: prompt_6,
+                7: prompt_7, 8: prompt_8, 9: prompt_9, 10: prompt_10, 11: prompt_11, 12: prompt_12,
+                13: prompt_13, 14: prompt_14, 15: prompt_15, 16: prompt_16, 17: prompt_17, 18: prompt_18,
+                19: prompt_19, 20: prompt_20, 21: prompt_21, 22: prompt_22, "all": prompt_all
+            }
+
+
+
+
+            # Динамически получаем нужный промпт
+            TOPIC_PROMPT = whisper_prompt.get(topic_index, whisper_prompt["all"])
+
             # Открываем mp3 файл для транскрипции
             with open(mp3_file_path, "rb") as audio_file:
                 transcription = client.audio.transcriptions.create(
                     model="whisper-1",
                     file=audio_file,
-                    prompt='Cообщение записано на русском языке. Это ответ на '
-                           'вопрос {last_question_text} '
-                           'на интервью на позицию программиста Python. '
-                           ' Сообщение включает'
-                           ' профессиональную терминологию на английском языке,'
-                           ' связанную с Python. '
-                           'Транскрибируй эту терминологию на английском. '
-                           'Все слова, которые не являются терминологией, '
-                           'должны быть транскрибированы на русском.'
-                    #prompt="The recorded message is in Russian, but it is "
-                    #       "a response to interview questions for a Python "
-                    #       "programmer position. It includes professional "
-                    #       "terminology in English related to Python and HR "
-                    #       "for Python programmer candidates. Transcribe this"
-                    #       " terminology in English. All words that are not"
-                    #       " terminology should be transcribed in Russian."
+                    prompt = TOPIC_PROMPT
+
                 )
 
         # Отправляем транскрибированный текст пользователю
@@ -1093,12 +1328,17 @@ def handle_voice(message):
             remove_timer_message_if_needed_for_message(message, user_id)
 
             # Получаем обратную связь на ответ пользователя
+
+
             feedback = get_feedback(last_question_text, transcription.text)
             bot.send_message(message.chat.id, feedback)
 
             # Обновляем запись в таблице Answers
             question_id = current_questions.get("last_question_id")
-            tdb.update_answer_record(user_id, question_id, feedback)
+            success=tdb.update_answer_record(user_id, question_id, feedback)
+            if success == 1:
+                sticker_id = STICKER_THUMBS_UP_CAT  # Замените на настоящий идентификатор стикера
+                bot.send_sticker(user_id, sticker_id)
 
             # Добавляем кнопки "Следующий вопрос" в зависимости от состояния
             if state == 'all_questions':
@@ -1147,12 +1387,18 @@ def handle_text(message):
 
         if not current_questions.get("state").startswith("None"):
             user_response = message.text
+            # Проверка и удаление сообщения с таймером, если нужно
+            remove_timer_message_if_needed_for_message(message, user_id)
+
             feedback = get_feedback(last_question_text, user_response)
             bot.send_message(message.chat.id, feedback)
 
             # Обновляем запись в таблице Answers
             question_id = current_questions.get("last_question_id")
-            tdb.update_answer_record(user_id, question_id, feedback)
+            success=tdb.update_answer_record(user_id, question_id, feedback)
+            if success == 1:
+                sticker_id = STICKER_THUMBS_UP_CAT  # Замените на настоящий идентификатор стикера
+                bot.send_sticker(user_id, sticker_id)
 
             # Добавляем кнопки "Следующий вопрос" в зависимости от состояния
             if state == 'all_questions':
